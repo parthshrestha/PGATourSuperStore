@@ -11,7 +11,7 @@ public class Shaft extends Item{
     String[] shaftFlex = {"Regular","Stiff","Extra Stiff"};
     String flex;
     protected int length;
-    enum clubHead;
+//    enum clubHead;
     ArrayList<String>[] shaftModels = new ArrayList[shaftBrands.length];
     public Shaft()
     {
@@ -29,13 +29,13 @@ public class Shaft extends Item{
         generatePrice();
         price = initialPrice;
     }
-    public void generateShaft()
-    {
-        if(clubHead)
-        {
-
-        }
-    }
+//    public void generateShaft()
+//    {
+//        if(clubHead)
+//        {
+//
+//        }
+//    }
     @Override
     public void generatePrice() {
         initialPrice = ((Math.random() * (50 - 20)) + 20);

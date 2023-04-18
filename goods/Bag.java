@@ -7,16 +7,16 @@ import java.util.Random;
 
 public class Bag extends Item{
     String[] bagBrands ={"FootJoy","Nike","Callaway","Titelist","Under Armour","Bionic","TaylorMade","PGA Tour","Zero Friction"};
-    ArrayList<String>[] bagModels = new ArrayList[bagBrands.length];
+    ArrayList<String> bagModels = new ArrayList<>();
     public Bag()
     {
         super();
         generateModels();
         Random rand = new Random();
         int choiceBrand = rand.nextInt(bagBrands.length);
-        int choiceModels = rand.nextInt(bagModels[choiceBrand].size());
+        int choiceModels = rand.nextInt(bagModels.size());
         brand = bagBrands[choiceBrand];
-        model = bagModels[choiceBrand].get(choiceModels);
+        model = bagModels.get(choiceModels);
         type = Enums.Goods.Bag;
         generatePrice();
         price = initialPrice;
@@ -28,9 +28,9 @@ public class Bag extends Item{
 
     @Override
     public void generateModels() {
-        bagModels[0].add("ComfortSof");
-        bagModels[1].add("StaSof");
-        bagModels[2].add("PureTouch");
-        bagModels[3].add("RainGrip");
+        bagModels.add("ComfortSof");
+        bagModels.add("StaSof");
+        bagModels.add("PureTouch");
+        bagModels.add("RainGrip");
     }
 }

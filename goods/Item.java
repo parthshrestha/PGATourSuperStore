@@ -11,6 +11,7 @@ public abstract class Item {
     protected Enums.Goods type;
     protected Double initialPrice;
     protected Double price;//final price
+    protected Double cost;
     public Item()//create a database for all items correlating to the upc
     {
         Random rand = new Random();
@@ -42,6 +43,8 @@ public abstract class Item {
     public Double getPrice() {
         return price;
     }
+
+    public Double getCost(){ return cost;}
     //setters
 
     public void setUpc(int upc) {
@@ -67,6 +70,8 @@ public abstract class Item {
     public void setPrice(Double price) {
         this.price = price;
     }
+
+    public void setCost(Double cost){ this.cost = cost; }
 
     //METHODS
     public abstract void generatePrice();

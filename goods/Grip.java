@@ -19,7 +19,7 @@ public class Grip extends Item{
         int choiceModels = rand.nextInt(gripModels[choiceBrand].size());
         brand = gripBrands[choiceBrand];
         model = gripModels[choiceBrand].get(choiceModels);
-        type = Enums.Goods.Glove;
+        type = Enums.Goods.Grip;
         size = sizes[rand.nextInt(sizes.length)];
         generatePrice();
         price = initialPrice;
