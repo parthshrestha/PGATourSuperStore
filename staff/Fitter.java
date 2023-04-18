@@ -3,6 +3,7 @@ package staff;
 import enums.Enums;
 
 public class Fitter extends Staff{
+    // Can only help 5 people per day
     public Fitter()
     {
         super();
