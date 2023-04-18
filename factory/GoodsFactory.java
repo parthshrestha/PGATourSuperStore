@@ -6,7 +6,7 @@ import goods.*;
 import java.util.ArrayList;
 
 public class GoodsFactory {
-    public Item getInstanceItem(ArrayList<Item> itemInventory, ArrayList<Item> soldItemInventory, Enums.Goods type)
+    public Item getInstanceItem(Enums.Goods type)
     {
         if (type == Enums.Goods.Glove)
         {return new Glove();}
