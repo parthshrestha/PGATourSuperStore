@@ -2,14 +2,13 @@ import enums.Enums;
 import factory.GoodsFactory;
 import factory.StaffFactory;
 import goods.*;
-import staff.SoftGood;
-import staff.Staff;
+import staff.*;
 import strat.ReGripStrat;
 
 import java.util.ArrayList;
 
 public class PGATourSuperstore {
-    ArrayList<Staff> staff;
+    ArrayList<Staff>[] staff;
     ArrayList<Item> goods;
     private GoodsFactory goodCreate;
     private StaffFactory staffCreate;
@@ -29,7 +28,7 @@ public class PGATourSuperstore {
 
 
     public PGATourSuperstore(){
-        staff = new ArrayList<>();
+        staff = new ArrayList[5];
         goods = new ArrayList<>();
         goodCreate = new GoodsFactory();
         staffCreate = new StaffFactory();
@@ -65,29 +64,29 @@ public class PGATourSuperstore {
     }
 
     public void fillInventory(){
-        while(bagCounter < 10 || clothingCounter < 10 || ballCounter < 10 || clubCounter < 10 || gloveCounter < 10 || shoeCounter < 10){
-            if(bagCounter < 10){
+        while(bagCounter < 100 || clothingCounter < 100 || ballCounter < 100 || clubCounter < 100 || gloveCounter < 100 || shoeCounter < 100){
+            if(bagCounter < 100){
                 Bag bag = (Bag) goodCreate.getInstanceItem(Enums.Goods.Bag);
                 expense(bag.getPrice());
                 System.out.println("Store purchased " + bag.getBrand() + " " + bag.getModel() + " for a price of " + bag.getPrice());
             }
-            if(clothingCounter < 10){
+            if(clothingCounter < 100){
                 Clothing clothing = (Clothing) goodCreate.getInstanceItem(Enums.Goods.Clothing);
                 System.out.println("Store purchased " + clothing.getBrand() + " " + clothing.getModel() + " for a price of " + clothing.getPrice());
             }
-            if(ballCounter < 10){
+            if(ballCounter < 100){
                 Balls balls = (Balls) goodCreate.getInstanceItem(Enums.Goods.Balls);
                 System.out.println("Store purchased " + balls.getBrand() + " " + balls.getModel() + " for a price of " + balls.getPrice());
             }
-            if(clubCounter < 10){
+            if(clubCounter < 100){
                 Club club = (Club) goodCreate.getInstanceItem(Enums.Goods.Club);
                 System.out.println("Store purchased " + club.getBrand() + " " + club.getModel() + " for a price of " + club.getPrice());
             }
-            if(gloveCounter < 10){
+            if(gloveCounter < 100){
                 Glove gloves = (Glove) goodCreate.getInstanceItem(Enums.Goods.Glove);
                 System.out.println("Store purchased " + gloves.getBrand() + " " + gloves.getModel() + " for a price of " + gloves.getPrice());
             }
-            if(shoeCounter < 10){
+            if(shoeCounter < 100){
                 Shoes shoes = (Shoes) goodCreate.getInstanceItem(Enums.Goods.Shoes);
                 System.out.println("Store purchased " + shoes.getBrand() + " " + shoes.getModel() + " for a price of " + shoes.getPrice());
             }
@@ -97,24 +96,74 @@ public class PGATourSuperstore {
     {
         // Using system.out.println for making printed out logs, then we can use observers to create logs that can be saved (if it's a feature)
         System.out.println("Opening Store");
+//        notifySubscriber(name,"log","Now Opening.....");
         fillInventory();
         // Make sure that there at least 10 goods of each type
+        // 4 for every staff
+        // Hire people in opening
+
+        while(staff[0].size() < 5){ // Hire Fitters
+            Fitter temp = (Fitter) staffCreate.getInstanceStaff(Enums.StaffType.Fitter);
+            staff[0].add(temp);
+            System.out.println("Hired new fitter named " + temp.getName());
+//            notifySubscriber(name,"log","Hired new fitter Named "+ temp.getName());
+        }
+
+        while(staff[1].size() < 5){ // Hire Logistics
+            Logistics temp = (Logistics) staffCreate.getInstanceStaff(Enums.StaffType.Logistic);
+            staff[1].add(temp);
+            System.out.println("Hired new logisitic named " + temp.getName());
+//            notifySubscriber(name,"log","Hired new logistic Named "+ temp.getName());
+        }
+
+        while(staff[2].size() < 5){ // Hire Management
+            Management temp = (Management) staffCreate.getInstanceStaff(Enums.StaffType.Management);
+            staff[2].add(temp);
+            System.out.println("Hired new management named " + temp.getName());
+//            notifySubscriber(name,"log","Hired new logistic Named "+ temp.getName());
+        }
+
+        while(staff[3].size() < 5){ // Hire Service Person
+            ServicePerson temp = (ServicePerson) staffCreate.getInstanceStaff(Enums.StaffType.ServicePerson);
+            staff[3].add(temp);
+            System.out.println("Hired new Service Person named " + temp.getName());
+//            notifySubscriber(name,"log","Hired new logistic Named "+ temp.getName());
+        }
+
+        while(staff[4].size() < 5){ // Hire Soft Good
+            SoftGood temp = (SoftGood) staffCreate.getInstanceStaff(Enums.StaffType.SoftGood);
+            staff[4].add(temp);
+            System.out.println("Hired new Soft Good named " + temp.getName());
+//            notifySubscriber(name,"log","Hired new logistic Named "+ temp.getName());
+        }
     }
 
     public void Service()
     {
-
+        // Parth
+        // Fixing
     }
     public void pickupEcom()
-    {}
+    {
+        // Make this as a to-do (future work)
+    }
     public void Selling()
     {
-
+        // Aiden
+        // Soft goods people
     }
     public void fitting()
-    {}
+    {
+        // Later
+        // use fitters
+    }
     public void ending()
-    {}
+    {
+        // Later
+        // make it similar to FNCD
+        // fire people
+        //
+    }
 
 
 }
