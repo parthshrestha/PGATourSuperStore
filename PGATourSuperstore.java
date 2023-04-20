@@ -92,53 +92,50 @@ public class PGATourSuperstore {
             }
         }
     }
-
-    public void fillStaff(int amount){
-        while(staff[0].size() < amount){ // Hire Fitters
-            Fitter temp = (Fitter) staffCreate.getInstanceStaff(Enums.StaffType.Fitter);
-            staff[0].add(temp);
-            System.out.println("Hired new fitter named " + temp.getName());
-//            notifySubscriber(name,"log","Hired new fitter Named "+ temp.getName());
-        }
-
-        while(staff[1].size() < amount){ // Hire Logistics
-            Logistics temp = (Logistics) staffCreate.getInstanceStaff(Enums.StaffType.Logistic);
-            staff[1].add(temp);
-            System.out.println("Hired new logisitic named " + temp.getName());
-//            notifySubscriber(name,"log","Hired new logistic Named "+ temp.getName());
-        }
-
-        while(staff[2].size() < amount){ // Hire Management
-            Management temp = (Management) staffCreate.getInstanceStaff(Enums.StaffType.Management);
-            staff[2].add(temp);
-            System.out.println("Hired new management named " + temp.getName());
-//            notifySubscriber(name,"log","Hired new logistic Named "+ temp.getName());
-        }
-
-        while(staff[3].size() < amount){ // Hire Service Person
-            ServicePerson temp = (ServicePerson) staffCreate.getInstanceStaff(Enums.StaffType.ServicePerson);
-            staff[3].add(temp);
-            System.out.println("Hired new Service Person named " + temp.getName());
-//            notifySubscriber(name,"log","Hired new logistic Named "+ temp.getName());
-        }
-
-        while(staff[4].size() < amount){ // Hire Soft Good
-            SoftGood temp = (SoftGood) staffCreate.getInstanceStaff(Enums.StaffType.SoftGood);
-            staff[4].add(temp);
-            System.out.println("Hired new Soft Good named " + temp.getName());
-//            notifySubscriber(name,"log","Hired new logistic Named "+ temp.getName());
-        }
-    }
     public void opening()
     {
         // Using system.out.println for making printed out logs, then we can use observers to create logs that can be saved (if it's a feature)
         System.out.println("Opening Store");
 //        notifySubscriber(name,"log","Now Opening.....");
         fillInventory();
-        fillStaff(5);
         // Make sure that there at least 10 goods of each type
         // 4 for every staff
         // Hire people in opening
+
+        while(staff[0].size() < 5){ // Hire Fitters
+            Fitter temp = (Fitter) staffCreate.getInstanceStaff(Enums.StaffType.Fitter);
+            staff[0].add(temp);
+            System.out.println("Hired new fitter named " + temp.getName());
+//            notifySubscriber(name,"log","Hired new fitter Named "+ temp.getName());
+        }
+
+        while(staff[1].size() < 5){ // Hire Logistics
+            Logistics temp = (Logistics) staffCreate.getInstanceStaff(Enums.StaffType.Logistic);
+            staff[1].add(temp);
+            System.out.println("Hired new logisitic named " + temp.getName());
+//            notifySubscriber(name,"log","Hired new logistic Named "+ temp.getName());
+        }
+
+        while(staff[2].size() < 5){ // Hire Management
+            Management temp = (Management) staffCreate.getInstanceStaff(Enums.StaffType.Management);
+            staff[2].add(temp);
+            System.out.println("Hired new management named " + temp.getName());
+//            notifySubscriber(name,"log","Hired new logistic Named "+ temp.getName());
+        }
+
+        while(staff[3].size() < 5){ // Hire Service Person
+            ServicePerson temp = (ServicePerson) staffCreate.getInstanceStaff(Enums.StaffType.ServicePerson);
+            staff[3].add(temp);
+            System.out.println("Hired new Service Person named " + temp.getName());
+//            notifySubscriber(name,"log","Hired new logistic Named "+ temp.getName());
+        }
+
+        while(staff[4].size() < 5){ // Hire Soft Good
+            SoftGood temp = (SoftGood) staffCreate.getInstanceStaff(Enums.StaffType.SoftGood);
+            staff[4].add(temp);
+            System.out.println("Hired new Soft Good named " + temp.getName());
+//            notifySubscriber(name,"log","Hired new logistic Named "+ temp.getName());
+        }
     }
 
     public void Service()

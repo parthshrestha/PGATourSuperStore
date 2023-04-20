@@ -11,8 +11,7 @@ public class Shaft extends Item{
     String[] shaftFlex = {"Regular","Stiff","Extra Stiff"};
     String flex;
     protected int length;
-//    enum clubHead;
-    ArrayList<String>[] shaftModels = new ArrayList[shaftBrands.length];
+
     public Shaft()
     {
         super();
@@ -25,17 +24,28 @@ public class Shaft extends Item{
         model = shaftModels[choiceBrand].get(choiceModels);
         flex = shaftFlex[choiceFlex];
         type = Enums.Goods.Shaft;
-        length =  new Double(((Math.random() * (39 - 32)) + 32)).intValue();
+        length =  new Double(((Math.random() * (46 - 36)) + 36)).intValue();
         generatePrice();
         price = initialPrice;
     }
-//    public void generateShaft()
-//    {
-//        if(clubHead)
-//        {
-//
-//        }
-//    }
+    public Shaft(String _flex, int lengthInInches)//specific length
+    {
+        super();
+        generateModels();
+        Random rand = new Random();
+        int choiceBrand = rand.nextInt(shaftBrands.length);
+        brand = shaftBrands[choiceBrand];
+        int choiceModels = rand.nextInt(shaftModels.get(brand).size());
+        int choiceFlex = rand.nextInt(shaftFlex.length);
+
+        model = shaftModels.get(brand).get(choiceModels);
+        flex = _flex;
+        type = Enums.Goods.Shaft;
+        length =  lengthInInches;
+        generatePrice();
+        price = initialPrice;
+    }
+
     @Override
     public void generatePrice() {
         initialPrice = ((Math.random() * (50 - 20)) + 20);
