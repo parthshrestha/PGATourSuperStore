@@ -152,8 +152,36 @@ public class PGATourSuperstore {
     }
     public void Selling()
     {
-        // Aiden
-        // Soft goods people
+        int minNumSales = 10;
+        int maxNumSales = 20;
+
+        //Random number of sales
+        Random rand = new Random();
+        int numSales = rand.nextInt(maxNumSales - minNumSales + 1) + minNumSales;
+
+        for(int i = 0; i < numSales; i++)
+        {
+            //Select random staff
+            int staffIndex = rand.nextInt(this.staff[3].size());
+            Staff salesman = this.staff[3].get(staffIndex);
+
+            //Select random item
+            int itemIndex = rand.nextInt(this.goods.size());
+            Item item = this.goods.get(itemIndex);
+
+            //Add money to budget
+            this.budget -= item.getPrice();
+
+            //Give staff
+            double bonus = item.getPrice() / 10;
+
+            //Log
+            System.out.println("Sold" + item.getModel() + " for " + item.getPrice());
+            System.out.println(salesman.getName() + "received a bonus of: " + bonus);
+
+            //remove random item from arrayList
+            this.goods.remove(item);
+        }
     }
     public void fitting()
     {
