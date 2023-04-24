@@ -1,3 +1,5 @@
+package buyer;
+
 import enums.Enums;
 import goods.Club;
 
@@ -13,7 +15,8 @@ public class Customer {
     ArrayList<goods.Item> cart;
     Enums.ServiceType service;
     Enums.CustomerIntent intent;
-    Enums.ServiceType[] conditions= {Enums.ServiceType.LENGTHEN,Sho}
+    Enums.ServiceType[] services= {Enums.ServiceType.REGRIP,Enums.ServiceType.RESHAFT,Enums.ServiceType.LENGTHEN,Enums.ServiceType.SHORTEN,Enums.ServiceType.NONE};
+    HashMap<String,ArrayList<Enums.ServiceType>> jobToEachClub;//<club head,jobs to be done>
     String MemberID;
     public Customer()
     {

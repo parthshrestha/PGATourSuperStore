@@ -9,10 +9,12 @@ public class Club extends Item{
     String[] clubBrands ={"FootJoy","Nike","Callaway","Titelist","Under Armour","Bionic","TaylorMade","PGA Tour","Zero Friction"};
     String[] clubHeads = {"Driver", "3-Wood", "5-Wood", "3-Iron", "4-Iron", "5-Iron", "6-Iron", "7-Iron", "8-Iron", "9-Iron", "Pitching Wedge", "Sand Wedge", "Lob Wedge", "Putter"};
     protected String size;
-    ArrayList<String>[] clubModels = new ArrayList[clubBrands.length];
-    String clubHead;
-    Grip clubGrip;
-    Shaft clubShaft;
+
+    protected String clubHead;
+    protected Enums.ClubHeads clubHeadEnum;
+    protected Grip clubGrip;
+    protected Shaft clubShaft;
+    protected Enums.Condition condition;
     public Club()
     {
         super();
