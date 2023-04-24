@@ -16,8 +16,8 @@ import java.util.Random;
 
 
 public class Service implements Publisher {
-    protected double shaftRepair = 17.99;
-    protected double reGrip = 2.99;
+    protected double shaftRepairCost = 17.99;
+    protected double reGripCost = 2.99;
     protected String pgaStorenumber;
     public Service(String name)
     {

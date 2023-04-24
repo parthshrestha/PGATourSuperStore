@@ -1,3 +1,8 @@
+import Activity.Ecommerce;
+import Activity.Fitting;
+import Activity.Selling;
+import Activity.Service;
+import buyer.Customer;
 import enums.Enums;
 import factory.GoodsFactory;
 import factory.StaffFactory;
@@ -6,14 +11,19 @@ import staff.*;
 import buyer.*;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class PGATourSuperstore {
-    ArrayList<Staff>[] staff;
-    ArrayList<Item> goods;
+    ArrayList<Staff>[] employees;//[fritter,logistics, management, Service person, Soft goods]
+    ArrayList<Item> inventory;
+    ArrayList<Item> soldInventory;
+    protected String storeNum;
+    ArrayList<Customer> serviceOrders;
     private GoodsFactory goodCreate;
     private StaffFactory staffCreate;
     private double budget;
-
+    private double netSales;
+    double staffEarnings = 0.0;
     // Counter for items
     private int bagCounter = 0;
     private int ballCounter = 0;
@@ -29,13 +39,19 @@ public class PGATourSuperstore {
     private int totalEmployees = 0;
     final String ANSI_RESET = "\u001B[0m";
     final String ANSI_RED = "\u001B[31m";//learned on geeks for geeks
+    Service s;
+    Ecommerce ecom;
+    Fitting fit;
+    Selling sell;
 
 
     public PGATourSuperstore(String num){
         storeNum = num;
         budget = 250000;
+        netSales = 0;
         employees = new ArrayList[5];
         inventory = new ArrayList<>();
+        soldInventory = new ArrayList<>();
         goodCreate = new GoodsFactory();
         staffCreate = new StaffFactory();
         for(int i = 0; i < employees.length; i++)//hiring 3 of each type staff
@@ -56,7 +72,7 @@ public class PGATourSuperstore {
                 for(int k = 0; k < 3; k++)
                 {
 
-                    employees[i].add(staffCreate.getInstanceStaff(Enums.StaffType.Logistic);
+                    employees[i].add(staffCreate.getInstanceStaff(Enums.StaffType.Logistic));
                 }
             }
             else if(i == 2) // hire Management
@@ -88,9 +104,9 @@ public class PGATourSuperstore {
             }
         }
         Service s = new Service(storeNum);
-        Ecommerce ecom = new Ecommerce(storeNum);
-        Fitting fit = new Fitting(storeNum);
-        Selling sell = new Selling(storeNum);
+//        Ecommerce ecom = new Ecommerce(storeNum);
+//        Fitting fit = new Fitting(storeNum);
+//        Selling sell = new Selling(storeNum);
         initialized = false;
         fillInventory();
         initialized = true;
@@ -163,6 +179,12 @@ public class PGATourSuperstore {
             }
             if(ballCounter < 100){
                 Balls balls = (Balls) goodCreate.getInstanceItem(Enums.Goods.Balls);
+                if(initialized)
+                {
+                    expense(balls.getPrice());
+                }
+                inventory.add(balls);
+                ballCounter++;
                 System.out.println("Store purchased " + balls.getBrand() + " " + balls.getModel() + " for a price of " + balls.getPrice());
             }
             if(clubCounter < 100){
@@ -307,44 +329,54 @@ public class PGATourSuperstore {
     {
         // Parth
         // Fixing
+        double beforeService = budget;
+        double afterService= s.service(serviceOrders, employees[2], beforeService);
+        double expended = beforeService-afterService;
+        expense(expended);
     }
     public void pickupEcom()
     {
         // Make this as a to-do (future work)
     }
-    public void Selling()
+    public void Selling(Customer joe)
     {
-        int minNumSales = 10;
-        int maxNumSales = 20;
+        double beforeSelling = netSales;
 
-        //Random number of sales
-        Random rand = new Random();
-        int numSales = rand.nextInt(maxNumSales - minNumSales + 1) + minNumSales;
-
-        for(int i = 0; i < numSales; i++)
-        {
-            //Select random staff
-            int staffIndex = rand.nextInt(this.staff[3].size());
-            Staff salesman = this.staff[3].get(staffIndex);
-
-            //Select random item
-            int itemIndex = rand.nextInt(this.goods.size());
-            Item item = this.goods.get(itemIndex);
-
-            //Add money to budget
-            this.budget -= item.getPrice();
-
-            //Give staff
-            double bonus = item.getPrice() / 10;
-
-            //Log
-            System.out.println("Sold" + item.getModel() + " for " + item.getPrice());
-            System.out.println(salesman.getName() + "received a bonus of: " + bonus);
-
-            //remove random item from arrayList
-            this.goods.remove(item);
+        double netsaleAfter =sell.selling(joe, employees, inventory, soldInventory, netSales, staffEarnings);
+        netSales += (netsaleAfter-beforeSelling);
+        income (netsaleAfter-beforeSelling);//to account for only the most recent sale
+        //aiden's copy of selling to be implemented in selling class
+//        int minNumSales = 10;
+//        int maxNumSales = 20;
+//
+//        //Random number of sales
+//        Random rand = new Random();
+//        int numSales = rand.nextInt(maxNumSales - minNumSales + 1) + minNumSales;
+//
+//        for(int i = 0; i < numSales; i++)
+//        {
+//            //Select random staff
+//            int staffIndex = rand.nextInt(this.employees[3].size());
+//            Staff salesman = this.employees[3].get(staffIndex);
+//
+//            //Select random item
+//            int itemIndex = rand.nextInt(this.employees.size());
+//            Item item = this.employees.get(itemIndex);
+//
+//            //Add money to budget
+//            this.budget -= item.getPrice();
+//
+//            //Give staff
+//            double bonus = item.getPrice() / 10;
+//
+//            //Log
+//            System.out.println("Sold" + item.getModel() + " for " + item.getPrice());
+//            System.out.println(salesman.getName() + "received a bonus of: " + bonus);
+//
+//            //remove random item from arrayList
+//            this.employees.remove(item);
         }
-    }
+
     public void fitting()
     {
         // Later

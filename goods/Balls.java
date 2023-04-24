@@ -9,14 +9,14 @@ public class Balls extends Item{
     protected boolean yellow;
     HashMap<String, ArrayList<String>> brandModel = new HashMap<>();
     String[] golfBallBrands ={"Callaway,Titelist,Srixon,TaylorMade"};
-    ArrayList<String>[] golfBallModels = new ArrayList[golfBallBrands.length];
+   // ArrayList<String>[] golfBallModels = new ArrayList[golfBallBrands.length];
     public Balls()
     {
         super();
         generateModels();
         Random rand = new Random();
         ArrayList<String> keysAsArray = new ArrayList<>(brandModel.keySet());
-        int choiceBrand = rand.nextInt(keysAsArray.size());
+        int choiceBrand = rand.nextInt(brandModel.get(brand).size());
         brand = keysAsArray.get(choiceBrand);
 
         int choiceModels = rand.nextInt(brandModel.get(brand).size());
@@ -44,31 +44,12 @@ public class Balls extends Item{
 
     public void generateModels()
     {
-//        for(int i = 0; i < golfBallBrands.length; i++) { // initializes the array lists for each car make
-//            golfBallModels[i] = new ArrayList<String>();
-//        }
 //
-//        //callaway
-//        golfBallModels[0].add("SuperSoft");
-//        golfBallModels[0].add("ChromeSoft");
-//
-//        //Titelist
-//        golfBallModels[1].add("V");
-//        golfBallModels[1].add("V1");
-//        golfBallModels[1].add("V1x");
-//
-//        //Srixon
-//        golfBallModels[2].add("NeonRed");
-//        golfBallModels[2].add("NeonOrange");
-//        golfBallModels[2].add("NeonGreen");
-//
-//        //taylor made
-//        golfBallModels[3].add("tpx5");
 
         // Create Brand Names
-        brandModel.put("Calloway", new ArrayList<>(Arrays.asList("SuperSoft", "ChromeSoft")));
-        brandModel.put("Titelist", new ArrayList<>(Arrays.asList("V", "V1", "V1x")));
-        brandModel.put("Srixon", new ArrayList<>(Arrays.asList("NeonRed", "NeonGreen", "NeonOrange")));
-        brandModel.put("TaylorMade", new ArrayList<>(Arrays.asList("tpx5")));
+        brandModel.put( golfBallBrands[0], new ArrayList<>(Arrays.asList("Chrome Soft","SuperSoft", "Waybird","CXR","ERC","Reva","Superfast")));
+        brandModel.put(golfBallBrands[1], new ArrayList<>(Arrays.asList("Pro V1", "Pro V1x", "AVX", "TrueFeel","Velocity","Tour Soft","Tour Speed")));
+        brandModel.put(golfBallBrands[2], new ArrayList<>(Arrays.asList("Z-Star", "Z-Star XV", "Q-Star", "Soft Feel")));
+        brandModel.put(golfBallBrands[3], new ArrayList<>(Arrays.asList("Distance+","TP5", "Tour Response", "Soft Response","TP5x")));
     }
 }

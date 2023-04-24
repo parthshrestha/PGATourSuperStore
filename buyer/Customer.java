@@ -2,8 +2,10 @@ package buyer;
 
 import enums.Enums;
 import goods.Club;
+import goods.Grip;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 import java.util.UUID;
 
@@ -22,12 +24,97 @@ public class Customer {
     {
         name = naming();
         //salary, staff itself does not have a salary set yet
-        age = new Double(((Math.random() * (65 - 18)) + 18)).intValue();
+        age =  (int)((Math.random() * (65 - 18)) + 18);
         wristToFloorDistance = ((Math.random() * (41 - 25)) + 25);
         MemberID = UUID.randomUUID().toString().replace("-",""); // this gives vin a 32 letter unique code that only it has
+        generateSet();
+        // initialize hash map
+        for(int i= 0; i < golfBag.length; i++)
+        {
+            Club currClub = golfBag[i];
+            jobToEachClub.put(currClub.getClubHead() ,new ArrayList<Enums.ServiceType>());
+        }
 
     }
+    public void generateSet()
+    {
+        Enums.ClubHeads[] set = {Enums.ClubHeads.DRIVER,
+                Enums.ClubHeads.THREEWOOD,
+                Enums.ClubHeads.FIVEWOOD,
+                Enums.ClubHeads.THREEIRON,
+                Enums.ClubHeads.FOURIRON,
+                Enums.ClubHeads.FIVEIRON,
+                Enums.ClubHeads.SIXIRON,
+                Enums.ClubHeads.SEVENIRON,
+                Enums.ClubHeads.EIGHTIRON,
+                Enums.ClubHeads.NINEIRON,
+                Enums.ClubHeads.PITCHINGWEDGE,
+                Enums.ClubHeads.SANDWEDGE,
+                Enums.ClubHeads.LOBWEDGE,
+                Enums.ClubHeads.PUTTER};
+        for(int i = 0; i < set.length; i++)
+        {
+            Club currClub = new Club(set[i]);
+            golfBag[i] = currClub;
+        }
+    }
+    public void generateService()
+    {
+        Random rand = new Random();
+        for(int i = 0; i < golfBag.length; i++)
+        {
+            Club currClub = golfBag[i];
+            if(currClub.getCondition() == Enums.Condition.BROKEN)// shaft needs change
+            {
+                jobToEachClub.get(currClub.getClubHead()).add(Enums.ServiceType.RESHAFT);
+                double chance = rand.nextDouble(); //random number 0-1
+                if (chance > 0.01)
+                {
+                    jobToEachClub.get(currClub.getClubHead()).add(Enums.ServiceType.REGRIP);
+                }
+                else//keep only a slight chance they don't get a re grip
+                {
+                    jobToEachClub.get(currClub.getClubHead()).add(Enums.ServiceType.NONE);
+                }
+            }
+            else if(currClub.getCondition() == Enums.Condition.PREOWNED)
+            {
+                double chance = rand.nextDouble(); //random number 0-1
+                if(chance >= 0.1 && chance < 0.65)//55%
+                {
 
+                    jobToEachClub.get(currClub.getClubHead()).add(Enums.ServiceType.REGRIP);
+                }
+                else if (chance < 0.1)//10%
+                {
+                    jobToEachClub.get(currClub.getClubHead()).add(Enums.ServiceType.NONE);
+                }
+                else //35%
+                {
+                    jobToEachClub.get(currClub.getClubHead()).add(Enums.ServiceType.RESHAFT);
+                    jobToEachClub.get(currClub.getClubHead()).add(Enums.ServiceType.REGRIP);
+                }
+            }
+            else//perfect
+            {
+                double chance = rand.nextDouble(); //random number 0-1
+                if(chance >= 0.7 && chance < 0.95)//25%
+                {
+
+                    jobToEachClub.get(currClub.getClubHead()).add(Enums.ServiceType.REGRIP);
+                }
+                else if (chance < 0.7)////new should not have to do service
+                {
+                    jobToEachClub.get(currClub.getClubHead()).add(Enums.ServiceType.NONE);
+                }
+                else //5%
+                {
+                    jobToEachClub.get(currClub.getClubHead()).add(Enums.ServiceType.RESHAFT);
+                    jobToEachClub.get(currClub.getClubHead()).add(Enums.ServiceType.REGRIP);
+                }
+            }
+        }
+    }
     public String naming()
     {
 
@@ -66,6 +153,14 @@ public class Customer {
         generateName = first[f] + " "+ last[l];
 
         return generateName;
+    }
+    public Club getClubAt(int i)
+    {
+        return golfBag[i];
+    }
+    public ArrayList<Enums.ServiceType> getServices(String _name)
+    {
+        return jobToEachClub.get(_name);
     }
 
 

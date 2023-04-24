@@ -7,7 +7,7 @@ import java.util.Random;
 
 public class Shoes extends Item{
 
-    String[] shoeBrands ={"Bionic","TaylorMade","PGA Tour","Zero Friction"};
+    String[] shoeBrands ={"Nike", "Adidas", "FootJoy", "GFore","ECCO"};
     double[] sizes = {4,4.5,5,5.5,6,6.5,7,7.5,8,8.5,9,9.5,10,10.5,11,11.5,12,13};
     protected Double size;
     ArrayList<String>[] shoeModels = new ArrayList[shoeBrands.length];
@@ -20,14 +20,14 @@ public class Shoes extends Item{
         int choiceModels = rand.nextInt(shoeModels[choiceBrand].size());
         brand = shoeBrands[choiceBrand];
         model = shoeModels[choiceBrand].get(choiceModels);
-        type = Enums.Goods.Glove;
+        type = Enums.Goods.Shoes;
         size = sizes[rand.nextInt(sizes.length)];
         generatePrice();
         price = initialPrice;
     }
     @Override
     public void generatePrice() {
-        initialPrice = ((Math.random() * (50 - 20)) + 20);
+        initialPrice = ((Math.random() * (150 - 90)) + 20);
 
 }
 

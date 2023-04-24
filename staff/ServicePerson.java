@@ -16,4 +16,11 @@ public class ServicePerson extends Staff{
     public void pay() {
         balance += payRate;
     }
+    public int getNumServiced()
+    {return numServiced;}
+
+    public void incrementNumServiced()
+    {
+        numServiced++;
+    }
 }

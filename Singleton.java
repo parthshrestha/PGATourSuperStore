@@ -2,7 +2,6 @@ import Observer.Logger;
 import Observer.Tracker;
 
 public class Singleton {
-    public class Singleton {
         //    private static int day;
         private static final Tracker track = new Tracker();//eager initialization
         private static volatile Logger log = null;
@@ -33,4 +32,4 @@ public class Singleton {
             return l;
         }
     }
-}
+

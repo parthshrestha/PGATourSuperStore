@@ -3,22 +3,27 @@ package goods;
 import enums.Enums;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Random;
 
 public class Racket extends Item{
-    String[] racketBrands ={"FootJoy","Nike","Callaway","Titelist","Under Armour","Bionic","TaylorMade","PGA Tour","Zero Friction"};
-    String[] sizes = {"S","M","L","XL","Cadet S","Cadet M","Cadet L","Cadet XL"};
+    String[] racketBrands ={"Wilson","Babolat", "Yonex", "Head"};
+    String[] sizes = {"19","21","23","25"};
     protected String size;
-    ArrayList<String>[] racketModels = new ArrayList[racketBrands.length];
+    //ArrayList<String>[] racketModels = new ArrayList[racketBrands.length];
+    HashMap<String, ArrayList<String>> racketModels = new HashMap<>();
     public Racket()
     {
         super();
         generateModels();
         Random rand = new Random();
         int choiceBrand = rand.nextInt(racketBrands.length);
-        int choiceModels = rand.nextInt(racketModels[choiceBrand].size());
         brand = racketBrands[choiceBrand];
-        model = racketModels[choiceBrand].get(choiceModels);
+
+        int choiceModels = rand.nextInt(racketModels.get(brand).size());
+
+        model = racketModels.get(brand).get(choiceModels);
         type = Enums.Goods.Racket;
         size = sizes[rand.nextInt(sizes.length)];
         generatePrice();
@@ -27,17 +32,15 @@ public class Racket extends Item{
 
     @Override
     public void generatePrice() {
-        initialPrice = ((Math.random() * (50 - 20)) + 20);
+        initialPrice = ((Math.random() * (260 - 30)) + 30);
     }
 
     @Override
     public void generateModels() {
-        racketModels[0].add("ComfortSof");
-
-        racketModels[1].add("Dura Feel");
-        //Callaway
-        racketModels[2].add("Dawn Patrol");
-        racketModels[2].add("Weather Spann");
+        racketModels.put(racketBrands[0],new ArrayList<>(Arrays.asList("Ultra", "Pro Staff","Blade","Clash","Triad Five","Burn Pink","Hyper Hammer")));
+        racketModels.put(racketBrands[1],new ArrayList<>(Arrays.asList("Pure Drive","Nadal","Pure Aero Lite","BOOST A","Pure Strike")));
+        racketModels.put(racketBrands[2],new ArrayList<>(Arrays.asList("EZONE","VCore Pro")));
+        racketModels.put(racketBrands[3],new ArrayList<>(Arrays.asList("G360+ Instinct MP","Graphene XT Instinct","BOOM Team","Instinct PWR Radical","Speed MP","Instinct Team Lite")));
 
     }
 }
