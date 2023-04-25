@@ -163,7 +163,8 @@ public class Customer {
         return jobToEachClub.get(_name);
     }
 
-
-
-
+    public ArrayList<goods.Item> getCart()
+    {
+        return this.cart;
+    }
 }
