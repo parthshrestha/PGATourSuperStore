@@ -79,16 +79,17 @@ public class Glove extends Item{
         gloveModels[4].add("PerformanceGrip");
         gloveModels[4].add("AquaGrip");
         //TaylorMade
-        gloveModels[4].add("Stratus Tech");
-        gloveModels[4].add("Tour Preferred");
-        gloveModels[4].add("TP Flex");
-        gloveModels[4].add("Targa");
+        gloveModels[6].add("Stratus Tech");
+        gloveModels[6].add("Tour Preferred");
+        gloveModels[6].add("TP Flex");
+        gloveModels[6].add("Targa");
         //PGA tour
-        gloveModels[5].add("Pro Series");
+        gloveModels[7].add("Pro Series");
+        gloveModels[7].add("Pro Series");
         //Zero Friction
-        gloveModels[6].add("Motion Fit");
-        gloveModels[6].add("Compression Fit");
-        gloveModels[6].add("Cabretta Elite");
+        gloveModels[8].add("Motion Fit");
+        gloveModels[8].add("Compression Fit");
+        gloveModels[8].add("Cabretta Elite");
     }
 
 

@@ -8,16 +8,16 @@ import java.util.*;
 public class Balls extends Item{
     protected boolean yellow;
     HashMap<String, ArrayList<String>> brandModel = new HashMap<>();
-    String[] golfBallBrands ={"Callaway,Titelist,Srixon,TaylorMade"};
+    String[] golfBallBrands ={"Callaway","Titelist","Srixon","TaylorMade"};
    // ArrayList<String>[] golfBallModels = new ArrayList[golfBallBrands.length];
     public Balls()
     {
         super();
         generateModels();
         Random rand = new Random();
-        ArrayList<String> keysAsArray = new ArrayList<>(brandModel.keySet());
-        int choiceBrand = rand.nextInt(brandModel.get(brand).size());
-        brand = keysAsArray.get(choiceBrand);
+        //ArrayList<String> keysAsArray = new ArrayList<>(brandModel.keySet());
+        int choiceBrand = rand.nextInt(golfBallBrands.length);
+        brand = golfBallBrands[choiceBrand];
 
         int choiceModels = rand.nextInt(brandModel.get(brand).size());
         model = brandModel.get(brand).get(choiceModels);
@@ -39,6 +39,7 @@ public class Balls extends Item{
 
     @Override
     public void generatePrice() {
+
         initialPrice = ((Math.random() * (50 - 20)) + 20);
     }
 

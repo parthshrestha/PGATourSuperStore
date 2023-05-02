@@ -45,6 +45,10 @@ public class Grip extends Item{
         generatePrice();
         price = initialPrice;
     }
+    public String getSize()
+    {
+        return size;
+    }
     @Override
     public void generatePrice() {
         initialPrice = ((Math.random() * (30 - 11)) + 11);

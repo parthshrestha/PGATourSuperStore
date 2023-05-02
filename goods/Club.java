@@ -244,6 +244,10 @@ public class Club extends Item{
         return clubGrip.size;
 
     }
+    public void setClubLength(int len)
+    {
+        clubShaft.length = len;
+    }
     public String getClubShaftFlex()
     {
         return clubShaft.flex;
@@ -251,6 +255,18 @@ public class Club extends Item{
     public int getClubShaftLength()
     {
         return clubShaft.length;
+    }
+    public Enums.ClubHeads getClubHeadEnum()
+    {
+        return clubHeadEnum;
+    }
+    public Grip getClubGrip()
+    {
+        return clubGrip;
+    }
+    public Shaft getClubShaft()
+    {
+        return clubShaft;
     }
 }
 

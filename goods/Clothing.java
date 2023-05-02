@@ -60,6 +60,10 @@ public class Clothing extends Item{
         generatePrice();
         price = initialPrice;
     }
+    public String getSize()
+    {
+        return size;
+    }
 
     @Override
     public void generatePrice() {

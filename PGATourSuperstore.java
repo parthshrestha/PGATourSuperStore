@@ -2,6 +2,7 @@ import Activity.Ecommerce;
 import Activity.Fitting;
 import Activity.Selling;
 import Activity.Service;
+import Observer.Publisher;
 import buyer.Customer;
 import enums.Enums;
 import factory.GoodsFactory;
@@ -13,7 +14,7 @@ import buyer.*;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class PGATourSuperstore {
+public class PGATourSuperstore implements Publisher {
     ArrayList<Staff>[] employees;//[fritter,logistics, management, Service person, Soft goods]
     ArrayList<Item> inventory;
     ArrayList<Item> soldInventory;
@@ -54,59 +55,11 @@ public class PGATourSuperstore {
         soldInventory = new ArrayList<>();
         goodCreate = new GoodsFactory();
         staffCreate = new StaffFactory();
-        for(int i = 0; i < employees.length; i++)//hiring 3 of each type staff
-        {
-
-            if(i == 0) // hire fitters
-            {
-                employees[i] = new ArrayList<Staff>();
-                for(int j = 0; j < 3; j++)
-                {
-
-                    employees[i].add(staffCreate.getInstanceStaff(Enums.StaffType.Fitter));
-                }
-            }
-            else if(i == 1) // hire logistics
-            {
-                employees[i] = new ArrayList<Staff>();
-                for(int k = 0; k < 3; k++)
-                {
-
-                    employees[i].add(staffCreate.getInstanceStaff(Enums.StaffType.Logistic));
-                }
-            }
-            else if(i == 2) // hire Management
-            {
-                employees[i] = new ArrayList<Staff>();
-                for(int k = 0; k < 3; k++)
-                {
-
-                    employees[i].add(staffCreate.getInstanceStaff(Enums.StaffType.Management));
-                }
-            }
-            else if (i == 3) // hire Service person
-            {
-                employees[i] = new ArrayList<Staff>();
-                for(int l = 0; l < 3; l++)
-                {
-
-                    employees[i].add(staffCreate.getInstanceStaff(Enums.StaffType.ServicePerson));
-                }
-            }
-            else //Soft goods
-            {
-                employees[i] = new ArrayList<Staff>();
-                for(int l = 0; l < 3; l++)
-                {
-
-                    employees[i].add(staffCreate.getInstanceStaff(Enums.StaffType.SoftGood));
-                }
-            }
-        }
-        Service s = new Service(storeNum);
-//        Ecommerce ecom = new Ecommerce(storeNum);
-//        Fitting fit = new Fitting(storeNum);
-//        Selling sell = new Selling(storeNum);
+        hireEmployees();
+        s = new Service(storeNum);
+//      ecom = new Ecommerce(storeNum);
+        fit = new Fitting(storeNum);
+//      sell = new Selling(storeNum);
         initialized = false;
         fillInventory();
         initialized = true;

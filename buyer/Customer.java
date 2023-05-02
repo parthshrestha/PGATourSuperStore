@@ -16,7 +16,8 @@ public class Customer {
     Club[] golfBag = new Club[14];
     ArrayList<goods.Item> cart;
     Enums.ServiceType service;
-    Enums.CustomerIntent intent;
+    protected Enums.CustomerIntent intent;
+    Enums.CustomerIntent[] intents = {Enums.CustomerIntent.SERVICE,Enums.CustomerIntent.FITTING,Enums.CustomerIntent.SHOPPING};
     Enums.ServiceType[] services= {Enums.ServiceType.REGRIP,Enums.ServiceType.RESHAFT,Enums.ServiceType.LENGTHEN,Enums.ServiceType.SHORTEN,Enums.ServiceType.NONE};
     HashMap<String,ArrayList<Enums.ServiceType>> jobToEachClub;//<club head,jobs to be done>
     String MemberID;
@@ -162,6 +163,15 @@ public class Customer {
     {
         return jobToEachClub.get(_name);
     }
+    public Enums.CustomerIntent getIntent()
+    {
+        return intent;
+    }
+    public Double getWristToFloor()
+    {
+        return wristToFloorDistance;
+    }
+
 
 
 

@@ -1,173 +1,110 @@
-//import Observer.Logger;
-//import Observer.Tracker;
-//
-//public class Simulation {
-//
-////    ArrayList<FNCD> dealerships;
-//
-//    static int day = 0;
-//    static String days[] = {"Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"};
-//    int numFNCD;
-////    ArrayList <Integer>[] vehiclesSoldPerDay;// to account for multiple fncd
-////    ArrayList <Double>[] staffEarningsPerDay;
-////    ArrayList<Double>[] fncdEarningsPerDay;
-//    public Simulation()
-//    {
-//        numFNCD = 0;
-////        dealerships = new ArrayList<FNCD>();
-//
-//        //this.dealerships.add(new FNCD("FNCD"+String.valueOf(numFNCD)));
-//        numFNCD++;
-//        //this.dealerships.add(new FNCD("FNCD"+String.valueOf(numFNCD)));
-//        numFNCD++;
-////        vehiclesSoldPerDay = new ArrayList[2];
-////        staffEarningsPerDay = new ArrayList[2];
-////        fncdEarningsPerDay = new ArrayList[2];
+import Observer.Logger;
+import Observer.Publisher;
+import Observer.Tracker;
+import buyer.Customer;
+
+import java.util.ArrayList;
+import java.util.Random;
+
+public class Simulation implements Publisher {
+
+    ArrayList<PGATourSuperstore> pga;
+
+    static int day = 0;
+    static String days[] = {"Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"};
+    int numPga;
+//    ArrayList <Integer>[] vehiclesSoldPerDay;// to account for multiple fncd
+//    ArrayList <Double>[] staffEarningsPerDay;
+//    ArrayList<Double>[] fncdEarningsPerDay;
+    public Simulation()
+    {
+        numPga = 0;
+        pga = new ArrayList<PGATourSuperstore>();
+
+        this.pga.add(new PGATourSuperstore("FNCD"+String.valueOf(numPga)));
+        numPga++;
+        //this.dealerships.add(new FNCD("FNCD"+String.valueOf(numFNCD)));
+
+//        vehiclesSoldPerDay = new ArrayList[2];
+//        staffEarningsPerDay = new ArrayList[2];
+//        fncdEarningsPerDay = new ArrayList[2];
 //        for(int i = 0; i < 2; i++)
 ////        {
 ////            vehiclesSoldPerDay[i] = new ArrayList<Integer>();
 ////            staffEarningsPerDay[i] = new ArrayList<Double>();
 ////            fncdEarningsPerDay[i] = new ArrayList<Double>();
 //        }
+
+        run();//start simulation
+    }
+    public static String getDayOfTheWeek()
+    {
+        return days[day %7];
+    }
+    public void run() {
+
+
+        Tracker track = Singleton.getInstanceTracker();
+        for(int i = 0; i < 1; i++) {
+            pga.get(i).registerSubscriber(track);
+        }
+        while (day < 2) {
+            Logger log = Singleton.getInstanceLogger(day);
+            for(int i = 0; i < pga.size(); i++)
+            {
+                pga.get(i).registerSubscriber(log);//adding the subcriber into the list
+            }
+
+            ArrayList<Customer> buyers = new ArrayList<Customer>();
+            //ArrayList<Buyer> buyers1 = new ArrayList<Buyer>();
+            System.out.println("===== Day: " + (day + 1) + "," + getDayOfTheWeek() + "=====");
+//                myDealership.opening();
+//                myDealership1.opening();
+            for(int i = 0; i < pga.size(); i++)//opening for all pga stores
+            {
+                pga.get(i).opening();
+            }
+            Random rand = new Random();
+            int numService = rand.nextInt(30);
+            ArrayList<Customer> customers = new ArrayList<Customer>();
+            for(int i = 0; i< numService;i++)
+            {
+                customers.add(new Customer());
+            }
+            for(int i = 0; i < pga.size(); i++)
+            {
+                pga.get(i).Service(customers);
+            }
+            for(int i = 0; i < pga.size(); i++)
+            {
+                pga.get(i).fitting(customers);
+            }
+
 //
-//        run();//start simulation
-//    }
-//    public static String getDayOfTheWeek()
-//    {
-//        return days[day %7];
-//    }
-//    public void run() {
-//
-//
-//        Tracker track = Singleton.getInstanceTracker();
-//        for(int i = 0; i < 1; i++) {
-//            //dealerships.get(i).registerSubscriber(track);
-//        }
-//        while (day < 30) {
-//            Logger log = Singleton.getInstanceLogger(day);
-//            for(int i = 0; i < 1; i++)
-//            {
-//                dealerships.get(i).registerSubscriber(log);//adding the subcriber into the list
-//            }
-//
-//            ArrayList<Buyer> buyers = new ArrayList<Buyer>();
-//            ArrayList<Buyer> buyers1 = new ArrayList<Buyer>();
-//            System.out.println("===== Day: " + (day + 1) + "," + getDayOfTheWeek() + "=====");
-////                myDealership.opening();
-////                myDealership1.opening();
-//            for(int i = 0; i < 2; i++)//opening for all fncd
-//            {
-//                dealerships.get(i).opening();
-//            }
-//
-////                myDealership.washing();
-////                myDealership1.washing();
-//            for(int i = 0; i < 2; i++)//washing for all fncd
-//            {
-//                dealerships.get(i).washing();
-//            }
-//
-//
-////                myDealership.repairing();
-////                myDealership1.repairing();
-//            for(int i = 0; i < 2; i++)//repairing for all fncd
-//            {
-//                dealerships.get(i).repairing();
-//            }
-//
-//            if (getDayOfTheWeek() == "Wednesday" || getDayOfTheWeek() == "Sunday") {
-//
-////                    myDealership.race();
-////                    myDealership1.race();
-//                for(int i = 0; i < 2; i++)//opening for all fncd
-//                {
-//                    dealerships.get(i).race();
-//                }
-//            }
-//            Random rand = new Random();
-//            int numBuyers;
-//            int numBuyers1;
-//            if (getDayOfTheWeek() == "Friday" || getDayOfTheWeek() == "Saturday") {
-//                numBuyers = rand.nextInt(6) + 2; //min 2 max 8 from a generation of 0-6
-//                numBuyers1 = rand.nextInt(6) + 2; //min 2 max 8 from a generation of 0-6
-//            } else//working days
-//            {
-//                numBuyers = rand.nextInt(5); // generation of 0-5
-//                numBuyers1 = rand.nextInt(5); // generation of 0-5
-//            }
-//            System.out.println("There are " + numBuyers + " buyers at" +dealerships.get(0).name + "today");
-//            System.out.println("There are " + numBuyers1 + " buyers at" + dealerships.get(1).name + "today");
-//            for (int i = 0; i < numBuyers; i++)//initialize number of buyers based on day
-//            {
-//                buyers.add(new Buyer());
-//            }
-//            for (int i = 0; i < numBuyers1; i++)//initialize number of buyers based on day
-//            {
-//                buyers1.add(new Buyer());
-//            }
-//            for (int i = 0; i < buyers.size(); i++)//takes every buyer to selling faze
-//            {
-//
-//                System.out.println("===========" +dealerships.get(0).name + "===========");
-//                System.out.println("Buyer #" + (i + 1) + " wants to buy a vehicle");
-//
-//                Buyer currBuyer = buyers.get(i);
-//                System.out.println("Mood:" + currBuyer.getIntention());
-//                System.out.println("Prefered type " + currBuyer.getTypeOfVehicle());
-//                dealerships.get(0).selling(currBuyer);
-//                System.out.println("===================== Sale Ended =====================");
-//            }
-//            for (int i = 0; i < buyers1.size(); i++)//takes every buyer to selling faze
-//            {
-//
-//                System.out.println("===========" + dealerships.get(1).name + "===========");
-//                System.out.println(dealerships.get(1).name + " Buyer #" + (i + 1) + " wants to buy a vehicle");
-//
-//                Buyer currBuyer = buyers1.get(i);
-//                System.out.println("Mood:" + currBuyer.getIntention());
-//                System.out.println("Prefered type " + currBuyer.getTypeOfVehicle());
-//                dealerships.get(1).selling(currBuyer);
-//                System.out.println("===================== Sale Ended =====================");
-//            }
-//
-////                myDealership.ending();
-////                myDealership1.ending();
-//            for(int i = 0; i < 2; i++)//ending for all fncd
-//            {
-//
-//                fncdEarningsPerDay[i].add(dealerships.get(i).ending());
-//            }
-//            for(int i = 0; i < 2; i++)//add data for graph
-//            {
-//                vehiclesSoldPerDay[i].add(dealerships.get(i).numVehiclesSold);
-//                staffEarningsPerDay[i].add(track.getstaffEarnigs(dealerships.get(i).name));
-//                System.out.println("net sales is: "+ dealerships.get(i).getNetSales());
-//                //fncdEarningsPerDay[i].add(dealerships.get(i).getNetSales());
-//            }
-//
-//            track.showReport();//should match and part of observer pattern tracking side
-////                myDealership.unregisterSubscriber(log);//logger in observer pattern changes every day
-////                myDealership1.unregisterSubscriber(log);//logger in observer pattern changes every day
-//            for(int i = 0; i < 2; i++)//opening for all fncd
-//            {
-//                dealerships.get(i).unregisterSubscriber(log);
-//            }
-//            day++;
-//        }
+
+            track.showReport();//should match and part of observer pattern tracking side
+//                myDealership.unregisterSubscriber(log);//logger in observer pattern changes every day
+//                myDealership1.unregisterSubscriber(log);//logger in observer pattern changes every day
+            for(int i = 0; i < pga.size(); i++)//opening for all fncd
+            {
+                pga.get(i).unregisterSubscriber(log);
+            }
+            day++;
+        }
 //        String fncdGraph1 = dealerships.get(0).name + "Graph.jpg";
 //        FncdGraph graph1 = new FncdGraph(vehiclesSoldPerDay[0],staffEarningsPerDay[0],fncdEarningsPerDay[0],fncdGraph1);
 //        String fncdGraph2 = dealerships.get(1).name + "Graph.jpg";
 //        FncdGraph graph2 = new FncdGraph(vehiclesSoldPerDay[1],staffEarningsPerDay[1],fncdEarningsPerDay[1],fncdGraph2);
 //        sellingInteractive();
-//
-////        myDealership.unregisterSubscriber(track);//tracking from observer pattern ends when simulation does
-////        myDealership1.unregisterSubscriber(track);
-//        for(int i = 0; i < 1; i++)//opening for all fncd
-//        {
-//            dealerships.get(i).unregisterSubscriber(track);
-//        }
-//    }
-//
+
+//        myDealership.unregisterSubscriber(track);//tracking from observer pattern ends when simulation does
+//        myDealership1.unregisterSubscriber(track);
+        for(int i = 0; i < 1; i++)//opening for all fncd
+        {
+            pga.get(i).unregisterSubscriber(track);
+        }
+    }
+
 //    private void sellingInteractive(){
 //        //Location of Commands and Invoker
 //
@@ -322,4 +259,4 @@
 //        System.out.println("8. Quit");
 //        System.out.println();
 //    }
-//}
+}
