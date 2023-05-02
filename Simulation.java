@@ -77,6 +77,9 @@ public class Simulation implements Publisher {
                 pga.get(i).Service(customers);
             }
 
+            System.out.println("\n-------------------------------------");
+            System.out.println("Selling \n");
+
             for(int i = 0; i < pga.size(); i++)
             {
                 for(int j = 0; j < customers.size(); j++)
@@ -88,6 +91,8 @@ public class Simulation implements Publisher {
                     }
                 }
             }
+
+            System.out.println();
 
 //            for(int i = 0; i < pga.size(); i++)
 //            {

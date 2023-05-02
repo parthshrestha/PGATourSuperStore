@@ -1,6 +1,7 @@
 package Activity;
 
 import buyer.Customer;
+import enums.Enums;
 import goods.Item;
 import staff.Staff;
 
@@ -16,7 +17,7 @@ public class Selling {
     public Selling(String pgaStorenumber) { this.pgaStorenumber = pgaStorenumber; }
 
     //Returns the total of the sale
-    public double selling(Customer customer, ArrayList<Staff>[] employees, ArrayList<Item> inventory, ArrayList<Item> soldInventory, double staffEarnigns) {
+    public double selling(Customer customer, ArrayList<Staff>[] employees, ArrayList<Item> inventory, int[] itemCounters, ArrayList<Item> soldInventory, double staffEarnigns) {
 
         //Select random employee to help customer
         Random rand = new Random();
@@ -30,9 +31,13 @@ public class Selling {
         ArrayList<goods.Item> cart = customer.getCart();
 
         //If there are no items in the cart return -1
-        if(cart == null){ return -1; }
-
         int cartSize = cart.size();
+        if(cartSize == 0)
+        {
+            System.out.println("Customer " + customer.name + " decided not to purchase anything.");
+            return 0;
+        }
+
         double total = 0;
 
         //Get each item and add its price to total
@@ -45,8 +50,9 @@ public class Selling {
 
             soldInventory.add(item);
             inventory.remove(item);
+            itemCounters[item.getType().ordinal()] -= 1;
 
-            System.out.println("Customer  " + customer.name + " purchased " + item.getModel() + " for " + item.getPrice());
+            System.out.println("Customer " + customer.name + " purchased " + item.getModel() + " for " + item.getPrice());
         }
 
         //Give staff bonus and log it

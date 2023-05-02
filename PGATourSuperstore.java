@@ -12,6 +12,7 @@ import staff.*;
 import buyer.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 
 public class PGATourSuperstore implements Publisher {
@@ -26,6 +27,10 @@ public class PGATourSuperstore implements Publisher {
     private double netSales;
     double staffEarnings = 0.0;
     // Counter for items
+
+    private int[] itemCounters;
+
+    /**
     private int bagCounter = 0;
     private int ballCounter = 0;
     private int clothingCounter = 0;
@@ -36,6 +41,8 @@ public class PGATourSuperstore implements Publisher {
     private int gripCounter = 0;
     private int racketCounter = 0;
     private int shaftCounter = 0;
+     **/
+
     private boolean initialized;
     private int totalEmployees = 0;
     final String ANSI_RESET = "\u001B[0m";
@@ -65,6 +72,10 @@ public class PGATourSuperstore implements Publisher {
         fit = new Fitting(storeNum);
         sell = new Selling(storeNum);
         initialized = false;
+
+        itemCounters = new int[Enums.Goods.values().length];
+        Arrays.fill(itemCounters, 0);
+
         fillInventory();
         initialized = true;
     }
@@ -100,6 +111,25 @@ public class PGATourSuperstore implements Publisher {
 
 
     public void fillInventory(){//fix initialized and add inventory
+
+        int difTypes = itemCounters.length;
+        for(int i = 0; i < difTypes; i++)
+        {
+            while(itemCounters[i] < 10)
+            {
+                Item item = goodCreate.getInstanceItem(Enums.Goods.values()[i]);
+                if(initialized)
+                {
+                    expense(item.getPrice());
+                }
+
+                inventory.add(item);
+                itemCounters[i]++;
+                System.out.println("Store purchased " + item.getBrand() + " " + item.getModel() + " for a price of " + item.getPrice());
+            }
+        }
+
+        /**
         while(bagCounter < 10 ||
                 clothingCounter < 10 ||
                 ballCounter < 10 ||
@@ -213,6 +243,7 @@ public class PGATourSuperstore implements Publisher {
                 System.out.println("Store purchased " + golfShaft.getBrand() + " " + golfShaft.getModel() + " for a price of " + golfShaft.getPrice());
             }
         }
+         **/
     }
     public void hireEmployees()
     {
@@ -304,7 +335,7 @@ public class PGATourSuperstore implements Publisher {
     }
     public void selling(Customer customer)
     {
-        double total = sell.selling(customer, employees, inventory, soldInventory, staffEarnings);
+        double total = sell.selling(customer, employees, inventory, itemCounters, soldInventory, staffEarnings);
 
         if(total == -1)
         {
