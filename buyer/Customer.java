@@ -173,7 +173,8 @@ public class Customer {
     }
 
 
-
-
-
+    public ArrayList<goods.Item> getCart()
+    {
+        return this.cart;
+    }
 }
