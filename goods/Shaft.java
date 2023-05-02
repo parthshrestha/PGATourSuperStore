@@ -39,7 +39,6 @@ public class Shaft extends Item{
         int choiceBrand = rand.nextInt(shaftBrands.length);
         brand = shaftBrands[choiceBrand];
         int choiceModels = rand.nextInt(shaftModels.get(brand).size());
-        int choiceFlex = rand.nextInt(shaftFlex.length);
 
         model = shaftModels.get(brand).get(choiceModels);
         flex = _flex;
@@ -47,6 +46,10 @@ public class Shaft extends Item{
         length =  lengthInInches;
         generatePrice();
         price = initialPrice;
+    }
+    public String getFlex()
+    {
+        return flex;
     }
 
     @Override

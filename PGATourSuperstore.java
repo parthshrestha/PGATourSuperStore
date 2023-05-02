@@ -19,7 +19,7 @@ public class PGATourSuperstore implements Publisher {
     ArrayList<Item> inventory;
     ArrayList<Item> soldInventory;
     protected String storeNum;
-    ArrayList<Customer> serviceOrders;
+    //ArrayList<Customer> serviceOrders;
     private GoodsFactory goodCreate;
     private StaffFactory staffCreate;
     private double budget;
@@ -51,6 +51,10 @@ public class PGATourSuperstore implements Publisher {
         budget = 250000;
         netSales = 0;
         employees = new ArrayList[5];
+        for(int i = 0; i < employees.length; i++)
+        {
+            employees[i] = new ArrayList<Staff>();
+        }
         inventory = new ArrayList<>();
         soldInventory = new ArrayList<>();
         goodCreate = new GoodsFactory();
@@ -98,18 +102,18 @@ public class PGATourSuperstore implements Publisher {
 
 
     public void fillInventory(){//fix initialized and add inventory
-        while(bagCounter < 100 ||
-                clothingCounter < 100 ||
-                ballCounter < 100 ||
-                clubCounter < 100 ||
-                gloveCounter < 100 ||
-                shoeCounter < 100||
-                accessoryCounter < 100||
-                gripCounter < 100||
-                racketCounter < 100||
-                shaftCounter < 100)//while there is less than 100 of any of these items fill the inventory
+        while(bagCounter < 10 ||
+                clothingCounter < 10 ||
+                ballCounter < 10 ||
+                clubCounter < 10 ||
+                gloveCounter < 10 ||
+                shoeCounter < 10||
+                accessoryCounter < 10||
+                gripCounter < 10||
+                racketCounter < 10||
+                shaftCounter < 10)//while there is less than 100 of any of these items fill the inventory
         {
-            if(bagCounter < 100){
+            if(bagCounter < 10){
                 Bag bag = (Bag) goodCreate.getInstanceItem(Enums.Goods.Bag);
                 if(initialized)
                 {
@@ -120,7 +124,7 @@ public class PGATourSuperstore implements Publisher {
                 bagCounter++;
                 System.out.println("Store purchased " + bag.getBrand() + " " + bag.getModel() + " for a price of " + bag.getPrice());
             }
-            if(clothingCounter < 100){
+            if(clothingCounter < 10){
                 Clothing clothing = (Clothing) goodCreate.getInstanceItem(Enums.Goods.Clothing);
                 if(initialized)
                 {
@@ -130,7 +134,7 @@ public class PGATourSuperstore implements Publisher {
                 clothingCounter++;
                 System.out.println("Store purchased " + clothing.getBrand() + " " + clothing.getModel() + " for a price of " + clothing.getPrice());
             }
-            if(ballCounter < 100){
+            if(ballCounter < 10){
                 Balls balls = (Balls) goodCreate.getInstanceItem(Enums.Goods.Balls);
                 if(initialized)
                 {
@@ -140,7 +144,7 @@ public class PGATourSuperstore implements Publisher {
                 ballCounter++;
                 System.out.println("Store purchased " + balls.getBrand() + " " + balls.getModel() + " for a price of " + balls.getPrice());
             }
-            if(clubCounter < 100){
+            if(clubCounter < 10){
                 Club club = (Club) goodCreate.getInstanceItem(Enums.Goods.Club);
                 if(initialized)
                 {
@@ -150,7 +154,7 @@ public class PGATourSuperstore implements Publisher {
                 clubCounter++;
                 System.out.println("Store purchased " + club.getBrand() + " " + club.getModel() + " for a price of " + club.getPrice());
             }
-            if(gloveCounter < 100){
+            if(gloveCounter < 10){
                 Glove gloves = (Glove) goodCreate.getInstanceItem(Enums.Goods.Glove);
                 if(initialized)
                 {
@@ -160,7 +164,7 @@ public class PGATourSuperstore implements Publisher {
                 gloveCounter++;
                 System.out.println("Store purchased " + gloves.getBrand() + " " + gloves.getModel() + " for a price of " + gloves.getPrice());
             }
-            if(shoeCounter < 100){
+            if(shoeCounter < 10){
                 Shoes shoes = (Shoes) goodCreate.getInstanceItem(Enums.Goods.Shoes);
                 if(initialized)
                 {
@@ -170,7 +174,7 @@ public class PGATourSuperstore implements Publisher {
                 shoeCounter++;
                 System.out.println("Store purchased " + shoes.getBrand() + " " + shoes.getModel() + " for a price of " + shoes.getPrice());
             }
-            if(accessoryCounter < 100){
+            if(accessoryCounter < 10){
                 Accessory acc = (Accessory) goodCreate.getInstanceItem(Enums.Goods.Accessory);
                 if(initialized)
                 {
@@ -180,7 +184,7 @@ public class PGATourSuperstore implements Publisher {
                 accessoryCounter++;
                 System.out.println("Store purchased " + acc.getBrand() + " " + acc.getModel() + " for a price of " + acc.getPrice());
             }
-            if(gripCounter < 100){
+            if(gripCounter < 10){
                 Grip grip = (Grip) goodCreate.getInstanceItem(Enums.Goods.Grip);
                 if(initialized)
                 {
@@ -190,17 +194,17 @@ public class PGATourSuperstore implements Publisher {
                 gripCounter++;
                 System.out.println("Store purchased " + grip.getBrand() + " " + grip.getModel() + " for a price of " + grip.getPrice());
             }
-            if(racketCounter < 100){
+            if(racketCounter < 10){
                 Racket tennisRacket = (Racket) goodCreate.getInstanceItem(Enums.Goods.Racket);
                 if(initialized)
                 {
                     expense(tennisRacket.getPrice());
                 }
                 inventory.add(tennisRacket);
-                gripCounter++;
+                racketCounter++;
                 System.out.println("Store purchased " + tennisRacket.getBrand() + " " + tennisRacket.getModel() + " for a price of " + tennisRacket.getPrice());
             }
-            if(shaftCounter < 100){
+            if(shaftCounter < 10){
                 Shaft golfShaft = (Shaft) goodCreate.getInstanceItem(Enums.Goods.Shaft);
                 if(initialized)
                 {
@@ -274,16 +278,25 @@ public class PGATourSuperstore implements Publisher {
             hireEmployees();
         }
 
-
+        System.out.println("Opening Sucessful");
 
     }
 
-    public void Service()
+    public void Service(ArrayList<Customer> serviceOrders)
     {
         // Parth
         // Fixing
         double beforeService = budget;
-        double afterService= s.service(serviceOrders, employees[2], beforeService);
+        double afterService= s.service(serviceOrders, employees[3], beforeService);
+        double expended = beforeService-afterService;
+        expense(expended);
+    }
+    public void fitting(ArrayList<Customer> serviceOrders)
+    {
+        // Later
+        // use fitters
+        double beforeService = budget;
+        double afterService = fit.clubFitting(serviceOrders,employees[0],beforeService);
         double expended = beforeService-afterService;
         expense(expended);
     }
@@ -293,16 +306,44 @@ public class PGATourSuperstore implements Publisher {
     }
     public void Selling(Customer joe)
     {
-        double total = sell.selling(joe, employees, inventory, soldInventory, netSales, staffEarnings);
-        income(total);
-        netSales += total;
+        double beforeSelling = netSales;
+
+        double netsaleAfter =sell.selling(joe, employees, inventory, soldInventory, netSales, staffEarnings);
+        netSales += (netsaleAfter-beforeSelling);
+        income (netsaleAfter-beforeSelling);//to account for only the most recent sale
+        //aiden's copy of selling to be implemented in selling class
+//        int minNumSales = 10;
+//        int maxNumSales = 20;
+//
+//        //Random number of sales
+//        Random rand = new Random();
+//        int numSales = rand.nextInt(maxNumSales - minNumSales + 1) + minNumSales;
+//
+//        for(int i = 0; i < numSales; i++)
+//        {
+//            //Select random staff
+//            int staffIndex = rand.nextInt(this.employees[3].size());
+//            Staff salesman = this.employees[3].get(staffIndex);
+//
+//            //Select random item
+//            int itemIndex = rand.nextInt(this.employees.size());
+//            Item item = this.employees.get(itemIndex);
+//
+//            //Add money to budget
+//            this.budget -= item.getPrice();
+//
+//            //Give staff
+//            double bonus = item.getPrice() / 10;
+//
+//            //Log
+//            System.out.println("Sold" + item.getModel() + " for " + item.getPrice());
+//            System.out.println(salesman.getName() + "received a bonus of: " + bonus);
+//
+//            //remove random item from arrayList
+//            this.employees.remove(item);
     }
 
-    public void fitting()
-    {
-        // Later
-        // use fitters
-    }
+
     public void ending()
     {
         // Later

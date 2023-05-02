@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Accessory extends Item{
-    String[] accBrands ={"FootJoy","Nike","Callaway","Titelist","Under Armour","Bionic","TaylorMade","PGA Tour","Zero Friction"};
+    String[] accBrands ={"GOLF GIFTS & GALLERY","PINS&ACES","Zero Friction"};
 
     ArrayList<String>[] accModels = new ArrayList[accBrands.length];
     public Accessory()
@@ -29,8 +29,20 @@ public class Accessory extends Item{
 
     @Override
     public void generateModels() {
-        accModels[0].add("ComfortSof");
-        accModels[1].add("StaSof");
-        accModels[2].add("PureTouch");
+        for(int i = 0; i < accBrands.length; i++)
+        {
+            accModels[i] = new ArrayList<String>();
+        }
+        accModels[0].add("Pride Golf ProLength 3-1/4 Tees 135-Pack");
+        accModels[0].add("Professional Tee System 3-1/4 Golf Tees 50-Pack");
+        accModels[0].add("Pro-Stix Alignment System");
+        accModels[0].add("Premium Dual Brush w/ Cord");
+
+        accModels[1].add("Putter Cover");
+        accModels[1].add("Driver Headcover");
+        accModels[1].add("Ball Marker");
+
+        accModels[2].add("Tour Variety Tees 50-Pack");
+        accModels[2].add("Golf Glove Wallet");
     }
 }

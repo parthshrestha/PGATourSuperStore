@@ -24,7 +24,7 @@ public class Service implements Publisher {
         pgaStorenumber = name;
     }
     public double service(ArrayList<Customer> serviceOrders, ArrayList<Staff> employees, double budget) {
-
+        System.out.println("Now Servicing all orders");
         for (int i = 0; i < serviceOrders.size(); i++)
         {
             Random rand = new Random();
@@ -66,10 +66,10 @@ public class Service implements Publisher {
                             if(currClub.getCondition() == Enums.Condition.PERFECT)
                             {
 
-                                    double bonus = 0.15 * serviceCost;
-                                    employee.setBonus(bonus);
-                                    budget-= bonus;
-                                    System.out.println(employee.getName() +" Earned bonus of: " + bonus);
+                                double bonus = 0.15 * serviceCost;
+                                employee.setBonus(bonus);
+                                budget-= bonus;
+                                System.out.println(employee.getName() +" Earned bonus of: " + bonus);
 
                             }
                         }
@@ -87,7 +87,7 @@ public class Service implements Publisher {
             }
         }
         System.out.println("finished servicing");
-      return budget;
+        return budget;
     }
 
 }

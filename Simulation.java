@@ -13,7 +13,7 @@ public class Simulation implements Publisher {
     static int day = 0;
     static String days[] = {"Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"};
     int numPga;
-//    ArrayList <Integer>[] vehiclesSoldPerDay;// to account for multiple fncd
+    //    ArrayList <Integer>[] vehiclesSoldPerDay;// to account for multiple fncd
 //    ArrayList <Double>[] staffEarningsPerDay;
 //    ArrayList<Double>[] fncdEarningsPerDay;
     public Simulation()
@@ -75,10 +75,10 @@ public class Simulation implements Publisher {
             {
                 pga.get(i).Service(customers);
             }
-            for(int i = 0; i < pga.size(); i++)
-            {
-                pga.get(i).fitting(customers);
-            }
+//            for(int i = 0; i < pga.size(); i++)
+//            {
+//                pga.get(i).fitting(customers);
+//            }
 
 //
 

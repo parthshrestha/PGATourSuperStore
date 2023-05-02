@@ -46,6 +46,10 @@ public class Glove extends Item{
 
     @Override
     public void generateModels() {
+        for(int i = 0; i < gloveBrands.length; i++)
+        {
+            gloveModels[i] = new ArrayList<String>();
+        }
         //footjoy
         gloveModels[0].add("ComfortSof");
         gloveModels[0].add("StaSof");
@@ -69,15 +73,15 @@ public class Glove extends Item{
         gloveModels[3].add("Players Flex");
         gloveModels[3].add("Velocity");
         //Under Armour
-        gloveModels[3].add("UA Playoff");
-        gloveModels[3].add("Strikeskin Tour");
-        gloveModels[3].add("UA Radar");
-        gloveModels[3].add("UA Iso-Chill");
+        gloveModels[4].add("UA Playoff");
+        gloveModels[4].add("Strikeskin Tour");
+        gloveModels[4].add("UA Radar");
+        gloveModels[4].add("UA Iso-Chill");
         //Bionic
-        gloveModels[4].add("StableGrip");
-        gloveModels[4].add("RelaxGrip");
-        gloveModels[4].add("PerformanceGrip");
-        gloveModels[4].add("AquaGrip");
+        gloveModels[5].add("StableGrip");
+        gloveModels[5].add("RelaxGrip");
+        gloveModels[5].add("PerformanceGrip");
+        gloveModels[5].add("AquaGrip");
         //TaylorMade
         gloveModels[6].add("Stratus Tech");
         gloveModels[6].add("Tour Preferred");

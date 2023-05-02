@@ -27,14 +27,20 @@ public class Customer {
         //salary, staff itself does not have a salary set yet
         age =  (int)((Math.random() * (65 - 18)) + 18);
         wristToFloorDistance = ((Math.random() * (41 - 25)) + 25);
+        jobToEachClub = new HashMap<String,ArrayList<Enums.ServiceType>>();
+        Random rand = new Random();
+        int choiceIntent = rand.nextInt(intents.length);
+        intent = intents[choiceIntent];
         MemberID = UUID.randomUUID().toString().replace("-",""); // this gives vin a 32 letter unique code that only it has
         generateSet();
         // initialize hash map
-        for(int i= 0; i < golfBag.length; i++)
+        for(int i= 0; i < 14; i++)
         {
             Club currClub = golfBag[i];
             jobToEachClub.put(currClub.getClubHead() ,new ArrayList<Enums.ServiceType>());
         }
+        generateService();
+
 
     }
     public void generateSet()
@@ -171,10 +177,13 @@ public class Customer {
     {
         return wristToFloorDistance;
     }
-
-
     public ArrayList<goods.Item> getCart()
     {
         return this.cart;
     }
+
+
+
+
+
 }

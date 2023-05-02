@@ -1,6 +1,7 @@
 package goods;
 
 import enums.Enums;
+import staff.Staff;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -51,7 +52,7 @@ public class Club extends Item{
         type = Enums.Goods.Club;
 //        clubHead = clubHeads[rand.nextInt(clubHeads.length)];
 //        clubHeadEnum = typeClub();
-
+        condition = generateConditionCustomer();
         generatePrice();
         price = initialPrice;
         if(clubHeadName ==Enums.ClubHeads.DRIVER )
@@ -127,7 +128,7 @@ public class Club extends Item{
     }
     public Enums.ClubHeads typeClub()
     {
-       // {"Driver", "3-Wood", "5-Wood", "3-Iron", "4-Iron", "5-Iron", "6-Iron", "7-Iron", "8-Iron", "9-Iron", "Pitching Wedge", "Sand Wedge", "Lob Wedge", "Putter"}
+        // {"Driver", "3-Wood", "5-Wood", "3-Iron", "4-Iron", "5-Iron", "6-Iron", "7-Iron", "8-Iron", "9-Iron", "Pitching Wedge", "Sand Wedge", "Lob Wedge", "Putter"}
         if(clubHead =="Driver")
         {
             return  Enums.ClubHeads.DRIVER;
@@ -201,6 +202,22 @@ public class Club extends Item{
             return Enums.Condition.PERFECT;
         }
     }
+    public Enums.Condition generateConditionCustomer()
+    {
+        Random rand = new Random();
+        double chance = rand.nextDouble(); //random number 0-1
+        if (chance <= 0.55) // 55% chance
+        {
+            return Enums.Condition.BROKEN;
+        }
+        else if ( chance > 0.55 && chance <= 0.85) { // 35% chance
+            return Enums.Condition.PREOWNED;
+        }
+        else // 0.15% chance
+        {
+            return Enums.Condition.PERFECT;
+        }
+    }
 
     @Override
     public void generatePrice() {
@@ -219,7 +236,7 @@ public class Club extends Item{
 
     }
 
-    public Enums.Condition getCondition()
+    public  Enums.Condition getCondition()
     {
         return condition;
     }
@@ -234,8 +251,19 @@ public class Club extends Item{
         clubGrip.size = newGrip.size;
         clubGrip.price = newGrip.price;
         clubGrip.initialPrice = newGrip.initialPrice;
+
     }
-    public void setCondition(Enums.Condition _condition)
+    public void setNewShaft(Shaft newShaft)
+    {
+        clubShaft.brand = newShaft.brand;
+        clubShaft.model = newShaft.model;
+        clubShaft.flex = newShaft.getFlex();
+        clubShaft.length = newShaft.length;
+        clubShaft.setInitialPrice(newShaft.initialPrice);
+        clubShaft.price = newShaft.price;
+        clubShaft.cost = newShaft.cost;
+    }
+    public  void setCondition(Enums.Condition _condition)
     {
         condition = _condition;
     }

@@ -85,7 +85,7 @@ public abstract class Staff {
         return daysWorked;
     }
     public double getBonusEarned() {return bonusEarned; }
-
+    public double getPayRate(){return payRate;}
     public Enums.StaffType getType() {return type;}
 
     //setters
