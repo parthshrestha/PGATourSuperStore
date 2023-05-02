@@ -2,6 +2,7 @@ import Observer.Logger;
 import Observer.Publisher;
 import Observer.Tracker;
 import buyer.Customer;
+import enums.Enums;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -75,6 +76,19 @@ public class Simulation implements Publisher {
             {
                 pga.get(i).Service(customers);
             }
+
+            for(int i = 0; i < pga.size(); i++)
+            {
+                for(int j = 0; j < customers.size(); j++)
+                {
+                    Customer customer = customers.get(j);
+                    if(customer.getIntent() == Enums.CustomerIntent.SHOPPING)
+                    {
+                        pga.get(i).selling(customer);
+                    }
+                }
+            }
+
 //            for(int i = 0; i < pga.size(); i++)
 //            {
 //                pga.get(i).fitting(customers);

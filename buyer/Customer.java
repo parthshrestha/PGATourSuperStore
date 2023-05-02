@@ -3,6 +3,7 @@ package buyer;
 import enums.Enums;
 import goods.Club;
 import goods.Grip;
+import goods.Item;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -40,7 +41,7 @@ public class Customer {
             jobToEachClub.put(currClub.getClubHead() ,new ArrayList<Enums.ServiceType>());
         }
         generateService();
-
+        cart = new ArrayList<Item>();
 
     }
     public void generateSet()
@@ -161,6 +162,20 @@ public class Customer {
 
         return generateName;
     }
+
+    public void fillCartRandom(ArrayList<Item> inventory)
+    {
+        Random rand = new Random();
+
+        //Select random items for customer to purchase (max 3)
+        int numPurchases = rand.nextInt(4);
+        int[] cartItemIndexes = rand.ints(0, inventory.size()).distinct().limit(numPurchases).toArray();
+        for(int i = 0; i < numPurchases; i++)
+        {
+            cart.add(inventory.get(cartItemIndexes[i]));
+        }
+    }
+
     public Club getClubAt(int i)
     {
         return golfBag[i];
@@ -177,13 +192,7 @@ public class Customer {
     {
         return wristToFloorDistance;
     }
-    public ArrayList<goods.Item> getCart()
-    {
-        return this.cart;
-    }
-
-
-
-
+    public ArrayList<goods.Item> getCart() { return this.cart; }
+    public void addToCart(goods.Item item) { cart.add(item); }
 
 }

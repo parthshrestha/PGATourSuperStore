@@ -63,12 +63,10 @@ public class PGATourSuperstore implements Publisher {
         s = new Service(storeNum);
 //      ecom = new Ecommerce(storeNum);
         fit = new Fitting(storeNum);
-//      sell = new Selling(storeNum);
+        sell = new Selling(storeNum);
         initialized = false;
         fillInventory();
         initialized = true;
-
-
     }
 
     public void income(double money)
@@ -304,45 +302,19 @@ public class PGATourSuperstore implements Publisher {
     {
         // Make this as a to-do (future work)
     }
-    public void Selling(Customer joe)
+    public void selling(Customer customer)
     {
-        double beforeSelling = netSales;
+        double total = sell.selling(customer, employees, inventory, soldInventory, staffEarnings);
 
-        double netsaleAfter =sell.selling(joe, employees, inventory, soldInventory, netSales, staffEarnings);
-        netSales += (netsaleAfter-beforeSelling);
-        income (netsaleAfter-beforeSelling);//to account for only the most recent sale
-        //aiden's copy of selling to be implemented in selling class
-//        int minNumSales = 10;
-//        int maxNumSales = 20;
-//
-//        //Random number of sales
-//        Random rand = new Random();
-//        int numSales = rand.nextInt(maxNumSales - minNumSales + 1) + minNumSales;
-//
-//        for(int i = 0; i < numSales; i++)
-//        {
-//            //Select random staff
-//            int staffIndex = rand.nextInt(this.employees[3].size());
-//            Staff salesman = this.employees[3].get(staffIndex);
-//
-//            //Select random item
-//            int itemIndex = rand.nextInt(this.employees.size());
-//            Item item = this.employees.get(itemIndex);
-//
-//            //Add money to budget
-//            this.budget -= item.getPrice();
-//
-//            //Give staff
-//            double bonus = item.getPrice() / 10;
-//
-//            //Log
-//            System.out.println("Sold" + item.getModel() + " for " + item.getPrice());
-//            System.out.println(salesman.getName() + "received a bonus of: " + bonus);
-//
-//            //remove random item from arrayList
-//            this.employees.remove(item);
+        if(total == -1)
+        {
+            System.out.println("Customer " + customer.name + " has decided not to purchase anything.");
+            return;
+        }
+
+        netSales += (total);
+        income (total);//to account for only the most recent sale
     }
-
 
     public void ending()
     {
