@@ -106,5 +106,10 @@ public abstract class Staff {
     public void setType(Enums.StaffType type) {
         this.type = type;
     }
+
+    public String toString() {
+        return String.format("%-20s | $%-10.2f | %-10d | $%-10.2f | %-15s | %-10.2f | $%-10s",
+                name, balance, daysWorked, bonusEarned, type.toString(), payRate, id);
+    }
 }
 

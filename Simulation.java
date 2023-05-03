@@ -9,7 +9,7 @@ import java.util.Random;
 
 public class Simulation implements Publisher {
 
-    ArrayList<PGATourSuperstore> pga;
+    PGATourSuperstore pga;
 
     static int day = 0;
     static String days[] = {"Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"};
@@ -17,13 +17,10 @@ public class Simulation implements Publisher {
     //    ArrayList <Integer>[] vehiclesSoldPerDay;// to account for multiple fncd
 //    ArrayList <Double>[] staffEarningsPerDay;
 //    ArrayList<Double>[] fncdEarningsPerDay;
-    public Simulation()
+    public Simulation(PGATourSuperstore pga)
     {
-        numPga = 0;
-        pga = new ArrayList<PGATourSuperstore>();
+        this.pga = pga;
 
-        this.pga.add(new PGATourSuperstore("FNCD"+String.valueOf(numPga)));
-        numPga++;
         //this.dealerships.add(new FNCD("FNCD"+String.valueOf(numFNCD)));
 
 //        vehiclesSoldPerDay = new ArrayList[2];
@@ -47,48 +44,40 @@ public class Simulation implements Publisher {
 
         Tracker track = Singleton.getInstanceTracker();
         for(int i = 0; i < 1; i++) {
-            pga.get(i).registerSubscriber(track);
+            pga.registerSubscriber(track);
         }
         while (day < 2) {
             Logger log = Singleton.getInstanceLogger(day);
-            for(int i = 0; i < pga.size(); i++)
-            {
-                pga.get(i).registerSubscriber(log);//adding the subcriber into the list
-            }
+            pga.registerSubscriber(log);//adding the subcriber into the list
 
             ArrayList<Customer> buyers = new ArrayList<Customer>();
             //ArrayList<Buyer> buyers1 = new ArrayList<Buyer>();
             System.out.println("===== Day: " + (day + 1) + "," + getDayOfTheWeek() + "=====");
 //                myDealership.opening();
 //                myDealership1.opening();
-            for(int i = 0; i < pga.size(); i++)//opening for all pga stores
-            {
-                pga.get(i).opening();
-            }
+            pga.opening();
+
             Random rand = new Random();
             int numService = rand.nextInt(30);
             ArrayList<Customer> customers = new ArrayList<Customer>();
+
             for(int i = 0; i< numService;i++)
             {
                 customers.add(new Customer());
             }
-            for(int i = 0; i < pga.size(); i++)
-            {
-                pga.get(i).Service(customers);
-            }
+
+            pga.Service(customers);
+
 
             System.out.println("\n-------------------------------------");
             System.out.println("Selling \n");
 
-            for(int i = 0; i < pga.size(); i++)
+            for(int j = 0; j < customers.size(); j++)
             {
-                for(int j = 0; j < customers.size(); j++)
+                Customer customer = customers.get(j);
+                if(customer.getIntent() == Enums.CustomerIntent.SHOPPING)
                 {
-                    Customer customer = customers.get(j);
-                    if(customer.getIntent() == Enums.CustomerIntent.SHOPPING)
-                    {
-                        pga.get(i).selling(customer);
-                    }
+                    pga.selling(customer);
                 }
             }
 
@@ -104,10 +93,8 @@ public class Simulation implements Publisher {
             track.showReport();//should match and part of observer pattern tracking side
 //                myDealership.unregisterSubscriber(log);//logger in observer pattern changes every day
 //                myDealership1.unregisterSubscriber(log);//logger in observer pattern changes every day
-            for(int i = 0; i < pga.size(); i++)//opening for all fncd
-            {
-                pga.get(i).unregisterSubscriber(log);
-            }
+
+            pga.unregisterSubscriber(log);
             day++;
         }
 //        String fncdGraph1 = dealerships.get(0).name + "Graph.jpg";
@@ -118,10 +105,7 @@ public class Simulation implements Publisher {
 
 //        myDealership.unregisterSubscriber(track);//tracking from observer pattern ends when simulation does
 //        myDealership1.unregisterSubscriber(track);
-        for(int i = 0; i < 1; i++)//opening for all fncd
-        {
-            pga.get(i).unregisterSubscriber(track);
-        }
+        pga.unregisterSubscriber(track);
     }
 
 //    private void sellingInteractive(){

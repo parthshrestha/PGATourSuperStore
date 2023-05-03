@@ -77,4 +77,12 @@ public abstract class Item {
     public abstract void generatePrice();
     public abstract void generateModels();
 
+    public String toString()
+    {
+        String initialPriceString = String.format("%.2f", initialPrice);
+        String priceString = String.format("%.2f", price);
+        String formatString = "%-15s%-15s%-15s%-15s%-15s%-15s%n";
+        return String.format(formatString, upc, brand, model, type, initialPriceString, priceString);
+    }
+
 }

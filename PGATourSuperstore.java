@@ -355,5 +355,9 @@ public class PGATourSuperstore implements Publisher {
         //
     }
 
+    public ArrayList<Staff>[] getStaff() {return employees;}
+    public ArrayList<Item> getInventory() {return inventory;}
+    public ArrayList<Item> getSoldInventory() {return soldInventory;}
 
+    public double getBudget(){return budget;}
 }
