@@ -8,4 +8,5 @@ public class Enums {
     public enum Condition{PERFECT,PREOWNED,BROKEN}
     public enum ServiceType{REGRIP,RESHAFT,LENGTHEN,SHORTEN,NONE}
     public enum CustomerIntent{SHOPPING,FITTING,SERVICE}
+    public enum MapItems{ITEMS, WALL, PATH, SOLUTION, INITIAL}
 }

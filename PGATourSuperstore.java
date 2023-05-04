@@ -8,6 +8,8 @@ import enums.Enums;
 import factory.GoodsFactory;
 import factory.StaffFactory;
 import goods.*;
+import searchAlgorithm.BFSSearch;
+import searchAlgorithm.DijkstraSearch;
 import staff.*;
 import buyer.*;
 
@@ -51,6 +53,7 @@ public class PGATourSuperstore implements Publisher {
     Ecommerce ecom;
     Fitting fit;
     Selling sell;
+    Ecommerce ecommerce;
 
 
     public PGATourSuperstore(String num){
@@ -71,7 +74,9 @@ public class PGATourSuperstore implements Publisher {
 //      ecom = new Ecommerce(storeNum);
         fit = new Fitting(storeNum);
         sell = new Selling(storeNum);
+        ecommerce = new Ecommerce();
         initialized = false;
+
 
         itemCounters = new int[Enums.Goods.values().length];
         Arrays.fill(itemCounters, 0);
@@ -343,9 +348,15 @@ public class PGATourSuperstore implements Publisher {
         double expended = beforeService-afterService;
         expense(expended);
     }
-    public void pickupEcom()
+    public void pickupEcom(ArrayList<Item> goals)
     {
         // Make this as a to-do (future work)
+        Ecommerce ecommerce = new Ecommerce();
+        for(Item x : goals){
+            ecommerce.addGoals(x);
+        }
+        ecommerce.setAlgorithm(new DijkstraSearch());
+        ecommerce.findPaths();
     }
     public void selling(Customer customer)
     {

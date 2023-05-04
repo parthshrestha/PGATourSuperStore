@@ -12,11 +12,13 @@ public abstract class Item {
     protected Double initialPrice;
     protected Double price;//final price
     protected Double cost;
+    protected Enums.MapItems mapItemsType;
     public Item()//create a database for all items correlating to the upc
     {
         Random rand = new Random();
         //attempt to create a unique upc number
         upc = rand.nextInt(100000000) + rand.nextInt(1000000)+ rand.nextInt(10000)+ rand.nextInt(100)+ rand.nextInt(10);
+        mapItemsType = Enums.MapItems.ITEMS;
     }
     //getters
     public int getUpc()
@@ -83,6 +85,10 @@ public abstract class Item {
         String priceString = String.format("%.2f", price);
         String formatString = "%-15s%-15s%-15s%-15s%-15s%-15s%n";
         return String.format(formatString, upc, brand, model, type, initialPriceString, priceString);
+    }
+
+    public Enums.MapItems getMapItemType(){
+        return mapItemsType;
     }
 
 }
