@@ -34,20 +34,21 @@ public class Simulation implements Publisher {
 ////            fncdEarningsPerDay[i] = new ArrayList<Double>();
 //        }
 
-        run();//start simulation
+        //run();//start simulation
     }
     public static String getDayOfTheWeek()
     {
         return days[day %7];
     }
-    public void run() {
 
+    //Runs the simulation for the passed number of days
+    public void run(int runDays) {
 
         Tracker track = Singleton.getInstanceTracker();
         for(int i = 0; i < 1; i++) {
             pga.registerSubscriber(track);
         }
-        while (day < 2) {
+        while (day < runDays) {
             Logger log = Singleton.getInstanceLogger(day);
             pga.registerSubscriber(log);//adding the subcriber into the list
 
