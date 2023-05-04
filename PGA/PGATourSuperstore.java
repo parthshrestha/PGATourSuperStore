@@ -1,3 +1,5 @@
+package PGA;
+
 import Activity.Ecommerce;
 import Activity.Fitting;
 import Activity.Selling;
@@ -381,6 +383,13 @@ public class PGATourSuperstore implements Publisher {
     }
 
     public ArrayList<Staff>[] getStaff() {return employees;}
+    public ArrayList<Staff> getStaffArrayList() {
+        ArrayList<Staff> temp = new ArrayList<>();
+        for(int i =0; i < employees.length; i++){
+            temp.addAll(employees[i]);
+        }
+        return temp;
+    }
     public ArrayList<Item> getInventory() {return inventory;}
     public ArrayList<Item> getSoldInventory() {return soldInventory;}
     public double getBudget(){return budget;}
@@ -390,6 +399,25 @@ public class PGATourSuperstore implements Publisher {
         employees[type].remove(employee);
         totalEmployees--;
     }
+    public void removeItem(Item item)
+    {
+        System.out.println("Removed " + item.getType() + ", " + item.getModel() +  " from the inventory" );
+        inventory.remove(item);
+        itemCounters[item.getType().ordinal()]--;
+    }
+
+    public void addItem(String brand, String model, Enums.Goods type, double price)
+    {
+        Item item = goodCreate.getInstanceItem(type);
+        item.setBrand(brand);
+        item.setModel(model);
+        item.setPrice(price);
+
+        inventory.add(item);
+
+        System.out.println("Added " + item.getType() + ", " + item.getModel() +  " to the inventory" );
+    }
+
     public void addEmployee(String name, Enums.StaffType type, double pay)
     {
         Staff staff = staffCreate.getInstanceStaff(type);
