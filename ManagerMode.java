@@ -38,9 +38,10 @@ public class ManagerMode extends Application {
 
         Tab employeesTab = new EmployeesTab(pga).getInstance();
         Tab inventoryTab = new InventoryTab(pga).getInstance();
+        Tab soldInventoryTab = new SoldInventoryTab(pga).getInstance();
         Tab virtualMapTab = virtualMapTab();
 
-        tabPane.getTabs().addAll(employeesTab, inventoryTab, virtualMapTab);
+        tabPane.getTabs().addAll(employeesTab, inventoryTab, soldInventoryTab, virtualMapTab);
 
         StackPane root = new StackPane(tabPane);
 

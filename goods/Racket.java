@@ -26,13 +26,8 @@ public class Racket extends Item{
         model = racketModels.get(brand).get(choiceModels);
         type = Enums.Goods.Racket;
         size = sizes[rand.nextInt(sizes.length)];
-        generatePrice();
+        initialPrice = generatePrice(30, 260);
         price = initialPrice;
-    }
-
-    @Override
-    public void generatePrice() {
-        initialPrice = ((Math.random() * (260 - 30)) + 30);
     }
 
     @Override

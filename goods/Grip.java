@@ -26,7 +26,7 @@ public class Grip extends Item{
         model = gripModels.get(brand).get(choiceModels);
         type = Enums.Goods.Grip;
         size = sizes[rand.nextInt(sizes.length)];
-        generatePrice();
+        initialPrice = generatePrice(11, 30);
         price = initialPrice;
     }
     public Grip(String _size)//parameterized for a specific size
@@ -42,16 +42,12 @@ public class Grip extends Item{
         model = gripModels.get(brand).get(choiceModels);
         type = Enums.Goods.Grip;
         size = _size;
-        generatePrice();
+        initialPrice = generatePrice(11, 30);
         price = initialPrice;
     }
     public String getSize()
     {
         return size;
-    }
-    @Override
-    public void generatePrice() {
-        initialPrice = ((Math.random() * (30 - 11)) + 11);
     }
 
     @Override

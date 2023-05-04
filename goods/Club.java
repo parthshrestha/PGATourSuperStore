@@ -34,7 +34,7 @@ public class Club extends Item{
         clubHead = clubHeads[rand.nextInt(clubHeads.length)];
         clubHeadEnum = typeClub();
         condition = generateCondition();
-        generatePrice();
+        initialPrice = generatePrice(20, 50);
         price = initialPrice;
     }
     public Club(Enums.ClubHeads clubHeadName)
@@ -53,7 +53,7 @@ public class Club extends Item{
 //        clubHead = clubHeads[rand.nextInt(clubHeads.length)];
 //        clubHeadEnum = typeClub();
         condition = generateConditionCustomer();
-        generatePrice();
+        initialPrice = generatePrice(20, 50);
         price = initialPrice;
         if(clubHeadName ==Enums.ClubHeads.DRIVER )
         {
@@ -217,11 +217,6 @@ public class Club extends Item{
         {
             return Enums.Condition.PERFECT;
         }
-    }
-
-    @Override
-    public void generatePrice() {
-        initialPrice = ((Math.random() * (50 - 20)) + 20);
     }
 
     @Override

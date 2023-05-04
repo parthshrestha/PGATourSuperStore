@@ -28,7 +28,7 @@ public class Shaft extends Item{
         flex = shaftFlex[choiceFlex];
         type = Enums.Goods.Shaft;
         length =  (int)((Math.random() * (46 - 36)) + 36);
-        generatePrice();
+        initialPrice = generatePrice(25, 150);
         price = initialPrice;
     }
     public Shaft(String _flex, int lengthInInches)//specific length
@@ -44,17 +44,12 @@ public class Shaft extends Item{
         flex = _flex;
         type = Enums.Goods.Shaft;
         length =  lengthInInches;
-        generatePrice();
+        initialPrice = generatePrice(25, 150);
         price = initialPrice;
     }
     public String getFlex()
     {
         return flex;
-    }
-
-    @Override
-    public void generatePrice() {
-        initialPrice = ((Math.random() * (150 - 25)) + 25);
     }
 
     @Override

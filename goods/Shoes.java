@@ -22,17 +22,12 @@ public class Shoes extends Item{
         model = shoeModels[choiceBrand].get(choiceModels);
         type = Enums.Goods.Shoes;
         size = sizes[rand.nextInt(sizes.length)];
-        generatePrice();
+        initialPrice = generatePrice(90, 150);
         price = initialPrice;
     }
     public double getSize()
     {
         return size;
-    }
-    @Override
-    public void generatePrice() {
-        initialPrice = ((Math.random() * (150 - 90)) + 20);
-
     }
 
     @Override

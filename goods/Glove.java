@@ -21,7 +21,7 @@ public class Glove extends Item{
         model = gloveModels[choiceBrand].get(choiceModels);
         type = Enums.Goods.Glove;
         size = sizes[rand.nextInt(sizes.length)];
-        generatePrice();
+        initialPrice = generatePrice(20, 50);
         price = initialPrice;
     }
     public Glove(String _size)
@@ -35,13 +35,8 @@ public class Glove extends Item{
         model = gloveModels[choiceBrand].get(choiceModels);
         type = Enums.Goods.Glove;
         size = _size;
-        generatePrice();
+        initialPrice = generatePrice(20, 50);
         price = initialPrice;
-    }
-
-    @Override
-    public void generatePrice() {
-        initialPrice = ((Math.random() * (50 - 20)) + 20);
     }
 
     @Override

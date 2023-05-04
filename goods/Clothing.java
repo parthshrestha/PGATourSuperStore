@@ -35,7 +35,7 @@ public class Clothing extends Item{
 //        model = clothingModels[choiceBrand].get(choiceModels);
         type = Enums.Goods.Clothing;
         size = sizes[rand.nextInt(sizes.length)];
-        generatePrice();
+        initialPrice = generatePrice(20, 100);
         price = initialPrice;
     }
     public Clothing(String _size)
@@ -57,17 +57,12 @@ public class Clothing extends Item{
 //        model = clothingModels[choiceBrand].get(choiceModels);
         type = Enums.Goods.Clothing;
         size = _size;
-        generatePrice();
+        initialPrice = generatePrice(20, 100);
         price = initialPrice;
     }
     public String getSize()
     {
         return size;
-    }
-
-    @Override
-    public void generatePrice() {
-        initialPrice = ((Math.random() * (100.0 - 20.0)) + 20.0);
     }
 
     @Override

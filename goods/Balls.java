@@ -27,7 +27,7 @@ public class Balls extends Item{
 //        brand = golfBallBrands[choiceBrand-1];
 //        model = golfBallModels[choiceBrand-1].get(choiceModels-1);
         type = Enums.Goods.Balls;
-        generatePrice();
+        initialPrice = generatePrice(20, 50);
         price = initialPrice;
         if(choiceBrand != 2)
         {
@@ -35,12 +35,6 @@ public class Balls extends Item{
             if(chance <= 50){yellow = true;}
             else{yellow=false;}
         }
-    }
-
-    @Override
-    public void generatePrice() {
-
-        initialPrice = ((Math.random() * (50 - 20)) + 20);
     }
 
     public void generateModels()

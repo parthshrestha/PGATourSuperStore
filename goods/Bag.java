@@ -21,12 +21,8 @@ public class Bag extends Item{
 
         model = bagModels.get(brand).get(choiceModels);
         type = Enums.Goods.Bag;
-        generatePrice();
+        initialPrice = generatePrice(20, 50);
         price = initialPrice;
-    }
-    @Override
-    public void generatePrice() {
-        initialPrice = ((Math.random() * (50 - 20)) + 20);
     }
 
     @Override

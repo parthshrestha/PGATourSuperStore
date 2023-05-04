@@ -19,12 +19,8 @@ public class Accessory extends Item{
         brand = accBrands[choiceBrand];
         model = accModels[choiceBrand].get(choiceModels);
         type = Enums.Goods.Accessory;
-        generatePrice();
+        initialPrice = generatePrice(20, 50);
         price = initialPrice;
-    }
-    @Override
-    public void generatePrice() {
-        initialPrice = ((Math.random() * (50 - 20)) + 20);
     }
 
     @Override

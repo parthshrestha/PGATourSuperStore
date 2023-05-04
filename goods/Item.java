@@ -2,6 +2,7 @@ package goods;
 
 import enums.Enums;
 
+import java.text.DecimalFormat;
 import java.util.Random;
 
 public abstract class Item {
@@ -76,7 +77,12 @@ public abstract class Item {
     public void setCost(Double cost){ this.cost = cost; }
 
     //METHODS
-    public abstract void generatePrice();
+    protected double generatePrice(double min, double max)
+    {
+        DecimalFormat df = new DecimalFormat("#.##");
+        double price = ((Math.random() * (max - min)) + min);
+        return Double.parseDouble(df.format(price));
+    }
     public abstract void generateModels();
 
     public String toString()
