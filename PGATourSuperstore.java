@@ -247,6 +247,19 @@ public class PGATourSuperstore implements Publisher {
     }
     public void hireEmployees()
     {
+        for(int i = 0; i < employees.length; i++)
+        {
+            for(int j = 0; j < 5 - employees[i].size(); j++)
+            {
+                Staff newStaff = staffCreate.getInstanceStaff(Enums.StaffType.values()[i]);
+                employees[i].add(newStaff);
+                System.out.println("Hired new + " + Enums.StaffType.values()[i] + ", " + newStaff.getName());
+                //            notifySubscriber(name,"log","Hired new fitter Named "+ temp.getName());
+                totalEmployees++;
+            }
+        }
+
+        /**
         for(int i = 0; i < employees.length;i++)
         {
             //[fritter,logistics, management, Service person, Soft goods]
@@ -292,6 +305,7 @@ public class PGATourSuperstore implements Publisher {
             }
 
         }
+         **/
     }
     public void opening()
     {
