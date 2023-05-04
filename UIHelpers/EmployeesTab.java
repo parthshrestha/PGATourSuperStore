@@ -22,6 +22,7 @@ public class EmployeesTab{
     private Tab employeeTab()
     {
         Tab employeesTab = new Tab("Employees");
+        employeesTab.setClosable(false);
         VBox employeesBox = new VBox();
         employeesBox.setAlignment(Pos.TOP_LEFT);
 

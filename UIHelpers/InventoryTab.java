@@ -25,6 +25,7 @@ public class InventoryTab {
     private Tab inventoryTab()
     {
         Tab inventoryTab = new Tab("Inventory");
+        inventoryTab.setClosable(false);
         VBox inventoryBox = new VBox();
         inventoryBox.setAlignment(Pos.TOP_LEFT);
 

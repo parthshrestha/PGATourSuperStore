@@ -23,6 +23,7 @@ public class PGATourSuperstore implements Publisher {
     ArrayList<Staff>[] employees;//[fritter,logistics, management, Service person, Soft goods]
     ArrayList<Item> inventory;
     ArrayList<Item> soldInventory;
+    ArrayList<Customer> soldCustomers;
     protected String storeNum;
     //ArrayList<Customer> serviceOrders;
     private GoodsFactory goodCreate;

@@ -1,6 +1,7 @@
 package UIHelpers;
 
 import PGA.PGATourSuperstore;
+import buyer.Customer;
 import goods.Item;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -26,6 +27,7 @@ public class SoldInventoryTab {
     private Tab soldInventoryTab()
     {
         Tab soldInventoryTab = new Tab("Sold Inventory");
+        soldInventoryTab.setClosable(false);
         VBox soldInventoryBox = new VBox();
         soldInventoryBox.setAlignment(Pos.TOP_LEFT);
 
