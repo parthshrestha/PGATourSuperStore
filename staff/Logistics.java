@@ -6,7 +6,7 @@ public class Logistics extends Staff{
     public Logistics()
     {
         super();
-        payRate = ((Math.random() * (22.5 - 18.3)) + 18.3);
+        payRate = randPayRate(22.5, 18.3);
         type = Enums.StaffType.Logistic;
     }
     @Override

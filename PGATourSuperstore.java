@@ -358,6 +358,21 @@ public class PGATourSuperstore implements Publisher {
     public ArrayList<Staff>[] getStaff() {return employees;}
     public ArrayList<Item> getInventory() {return inventory;}
     public ArrayList<Item> getSoldInventory() {return soldInventory;}
-
     public double getBudget(){return budget;}
+    public void removeEmployee(Staff employee, int type)
+    {
+        System.out.println("Fired " + employee.getName());
+        employees[type].remove(employee);
+        totalEmployees--;
+    }
+    public void addEmployee(String name, Enums.StaffType type, double pay)
+    {
+        Staff staff = staffCreate.getInstanceStaff(type);
+        staff.setName(name);
+        staff.setPayRate(pay);
+
+        employees[type.ordinal()].add(staff);
+        System.out.println("Hired new Service Person named " + name);
+        totalEmployees++;
+    }
 }

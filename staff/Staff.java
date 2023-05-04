@@ -1,6 +1,7 @@
 package staff;
 import enums.Enums;
 
+import java.text.DecimalFormat;
 import java.util.*;
 import java.util.UUID;
 
@@ -10,7 +11,7 @@ public abstract class Staff {
     protected int daysWorked;
     protected double bonusEarned;
     protected Enums.StaffType type;
-    protected String id;
+    protected String staffId;
     protected Double payRate;
 
     private Vector<String> names = new Vector<>();
@@ -21,8 +22,16 @@ public abstract class Staff {
         balance = 0.0; // not paid yet
         daysWorked = 0;
         bonusEarned = 0.0;// startign bonus would be 0
-        id = UUID.randomUUID().toString().replace("-",""); // this gives vin a 32 letter unique code that only it has
+        staffId = UUID.randomUUID().toString().replace("-",""); // this gives vin a 32 letter unique code that only it has
     }
+
+    protected double randPayRate(double min, double max)
+    {
+        DecimalFormat df = new DecimalFormat("#.##");
+        double pay = ((Math.random() * (max - min)) + min);
+        return Double.parseDouble(df.format(pay));
+    }
+
     public String naming()
     {
 
@@ -76,6 +85,10 @@ public abstract class Staff {
     {
         return name;
     }
+    public String getStaffId()
+    {
+        return staffId;
+    }
     public double getBalance()
     {
         return balance;
@@ -89,6 +102,8 @@ public abstract class Staff {
     public Enums.StaffType getType() {return type;}
 
     //setters
+    public  void setName(String name) { this.name = name; }
+    public void setPayRate( double pay) {this.payRate = pay; }
     public void setBonus(double tip)
     {
         bonusEarned += tip;
@@ -108,8 +123,8 @@ public abstract class Staff {
     }
 
     public String toString() {
-        return String.format("%-20s | $%-10.2f | %-10d | $%-10.2f | %-15s | %-10.2f | $%-10s",
-                name, balance, daysWorked, bonusEarned, type.toString(), payRate, id);
+        return String.format("%-20s  $%-10.2f  %-10d  $%-10.2f  %-15s  %-10.2f  $%-10s",
+                name, balance, daysWorked, bonusEarned, type.toString(), payRate, staffId);
     }
 }
 

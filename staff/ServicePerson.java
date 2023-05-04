@@ -13,7 +13,7 @@ public class ServicePerson extends Staff{
     public ServicePerson()
     {
         super();
-        payRate = ((Math.random() * (19.5 - 17.3)) + 17.3);
+        payRate = randPayRate(19.5, 17.3);
         numServiced = 0;
         type = Enums.StaffType.ServicePerson;
         serviceType = generateServiceType();

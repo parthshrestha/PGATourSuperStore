@@ -1,9 +1,3 @@
-import enums.Enums;
-import factory.GoodsFactory;
-import goods.*;
-import javafx.stage.Stage;
-import staff.*;
-
 import java.util.ArrayList;
 
 public class Main {
