@@ -7,17 +7,18 @@ import java.util.Comparator;
 import java.util.ArrayList;
 import map.*;
 
+// Inspiration From https://www.baeldung.com/java-dijkstra#:~:text=The%20core%20idea%20of%20the,minimum%20distance%20from%20the%20source.
 public class DijkstraSearch implements SearchAlgorithm {
     public List<int[]> findPath(Map map, int[] start, int[] goal) {
-        PriorityQueue<int[]> frontier = new PriorityQueue<>(Comparator.comparingInt(a -> a[2]));
+        PriorityQueue<int[]> pq = new PriorityQueue<>(Comparator.comparingInt(a -> a[2]));
         HashMap<String, int[]> cameFrom = new HashMap<>();
         HashMap<String, Integer> costSoFar = new HashMap<>();
-        frontier.offer(new int[]{start[0], start[1], 0});
+        pq.offer(new int[]{start[0], start[1], 0});
         cameFrom.put(getKey(start[0], start[1]), null);
         costSoFar.put(getKey(start[0], start[1]), 0);
 
-        while (!frontier.isEmpty()) {
-            int[] current = frontier.poll();
+        while (!pq.isEmpty()) {
+            int[] current = pq.poll();
 
             if (current[0] == goal[0] && current[1] == goal[1]) {
                 return reconstructPath(cameFrom, current);
@@ -29,7 +30,7 @@ public class DijkstraSearch implements SearchAlgorithm {
                 if (!costSoFar.containsKey(key) || newCost < costSoFar.get(key)) {
                     costSoFar.put(key, newCost);
                     int priority = newCost;
-                    frontier.offer(new int[]{neighbor[0], neighbor[1], priority});
+                    pq.offer(new int[]{neighbor[0], neighbor[1], priority});
                     cameFrom.put(key, current);
                 }
             }
