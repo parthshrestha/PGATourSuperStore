@@ -1,13 +1,11 @@
 package map;
-// To make it possible for A*Searh, each coordinates need to be able to have a value inside of them
-// We'll say that
-// 0 = possible place to pass
-// 1 = objectives
-// -100 = not possible
 
 import enums.Enums;
 import javafx.scene.paint.Color;
 
+// For 2d array map, the initial idea was inspired from
+// https://www.geeksforgeeks.org/searching-algorithms-for-a-2d-arrays-matrix/
+// https://www.geeksforgeeks.org/print-2-d-array-matrix-java/
 public class Map {
     private int xMin;
     private int xMax;

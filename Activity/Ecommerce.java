@@ -84,14 +84,8 @@ public class Ecommerce {
             }
         }
 
-        // Find what are the available Coordinates for items
         setAvailCoordinates();
 
-        // Set initial to always at 0,0
-//        map.setObject(0,0, Enums.MapItems.INITIAL);
-
-        // We're going to set all items to a random location since we assume that each time this is ran, it's a new place for the items
-        // Since this one has a parameter, make sure to add goals with all the items in parameter
         for(Item x : input){
             addGoals(x);
         }
@@ -125,16 +119,6 @@ public class Ecommerce {
                 }
             }
         }
-//        sectionCoord.get(0).remove(0); // Removes (0,0)
-//        availCoordinates.remove(0); // This removes (0,0) out of the equation
-
-
-//        for(int[] x : availCoordinates){
-//            System.out.println("(" + x[0] + ", " + x[1] + ")");
-//        }
-
-//        System.out.println("Reseted Avail Coordinates");
-
     }
 
     public void addGoals(Item input){
@@ -268,18 +252,7 @@ public class Ecommerce {
                     bestSolutionPath = tempSolutionPath;
                     pathCost = tempSolutionPath.size();
                 }
-
-//                if(tempSolutionPath.size() == pathCost){ // In the case they are equal, check for the amount of items they can pick up
-//                    int[] bestGoalKey = goals.get(bestIndex);
-//                    if(goalCoordMap.get(bestGoalKey).size() <= goalCoordMap.get(tempGoal).size()){
-//                        bestIndex = i;
-//                        bestSolutionPath = tempSolutionPath;
-//                        pathCost = tempSolutionPath.size();
-//                    }
-//                }
             }
-
-//            map.setObject(coordStart[0], coordStart[1], Enums.MapItems.INITIAL);
 
             queueSolutions.add(bestSolutionPath);
 
@@ -288,18 +261,6 @@ public class Ecommerce {
                 map.setSolution(temp[0], temp[1]);
             }
 
-//            map.visualize(); // Visualize map after solution
-//            // Print items that were picked up
-//            System.out.println("Got these items: ");
-//            int counter = 1;
-//            // Now print what items are picked up
-//            for(Item x : goalCoordMap.get(goals.get(bestIndex))){
-//                System.out.println(counter + ". " + x.getBrand() + " " + x.getModel() + " " +  x.getType());
-//                counter++;
-//            }
-//            System.out.println();
-//            System.out.println();
-//            map.resetMapSolution();
             coordStart = goals.get(bestIndex);
             goals.remove(bestIndex);
         }
@@ -307,17 +268,14 @@ public class Ecommerce {
         // If everything is done, return to the start
 
         tempGoal = new int[] {0,0};
-//        map.setObject(coordStart[0], coordStart[1], Enums.MapItems.INITIAL);
         List<int[]> finalSolution = new ArrayList<>();
         finalSolution = runSearch(tempGoal);
-//
         for(int i = 0; i < finalSolution.size()-1; i++){
             int[] temp = finalSolution.get(i);
             map.setSolution(temp[0], temp[1]);
         }
 
         map.visualize();
-//        map.resetMapSolution();
 
 
         //
