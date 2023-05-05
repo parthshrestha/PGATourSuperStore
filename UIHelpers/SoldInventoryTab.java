@@ -13,7 +13,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 
-public class SoldInventoryTab {
+public class SoldInventoryTab extends Tab{
 
     private PGATourSuperstore pga;
     private Tab tab;
@@ -21,13 +21,9 @@ public class SoldInventoryTab {
     public SoldInventoryTab(PGATourSuperstore pga)
     {
         this.pga = pga;
-        this.tab = soldInventoryTab();
-    }
 
-    private Tab soldInventoryTab()
-    {
-        Tab soldInventoryTab = new Tab("Sold Inventory");
-        soldInventoryTab.setClosable(false);
+        setText("Sold Inventory");
+        setClosable(false);
         VBox soldInventoryBox = new VBox();
         soldInventoryBox.setAlignment(Pos.TOP_LEFT);
 
@@ -53,21 +49,15 @@ public class SoldInventoryTab {
 
         //Add the columns to the table view
         soldInventoryTable.getColumns().addAll(idColumn, brandColumn, modelColumn, typeColumn,priceColumn);
-        //soldInventoryTable.getColumns().add(removeItemButton(inventoryTable));
 
         //Converts the items to observable list
         ObservableList<Item> observableListInventory = FXCollections.observableArrayList(pga.getSoldInventory());
         soldInventoryTable.setItems(observableListInventory);
 
         // Add the table to the layout
-        //soldInventoryBox.getChildren().add(new Label("Add New:"));
-        //soldInventoryBox.getChildren().add(addItemButton(inventoryTable));
         soldInventoryBox.getChildren().add(new Label(""));
         soldInventoryBox.getChildren().addAll(soldInventoryTable);
 
-        soldInventoryTab.setContent(soldInventoryBox);
-        return soldInventoryTab;
+        setContent(soldInventoryBox);
     }
-
-    public Tab getInstance(){ return this.tab; }
 }

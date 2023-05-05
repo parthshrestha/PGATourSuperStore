@@ -11,21 +11,16 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-public class InventoryTab {
+public class InventoryTab extends Tab{
 
     private PGATourSuperstore pga;
-    private Tab tab;
 
     public InventoryTab(PGATourSuperstore pga)
     {
         this.pga = pga;
-        this.tab = inventoryTab();
-    }
 
-    private Tab inventoryTab()
-    {
-        Tab inventoryTab = new Tab("Inventory");
-        inventoryTab.setClosable(false);
+        setText("Inventory");
+        setClosable(false);
         VBox inventoryBox = new VBox();
         inventoryBox.setAlignment(Pos.TOP_LEFT);
 
@@ -63,8 +58,7 @@ public class InventoryTab {
         inventoryBox.getChildren().add(new Label(""));
         inventoryBox.getChildren().addAll(inventoryTable);
 
-        inventoryTab.setContent(inventoryBox);
-        return inventoryTab;
+        setContent(inventoryBox);
     }
 
     private HBox addItemButton(TableView<Item> inventoryTable) {
@@ -133,6 +127,4 @@ public class InventoryTab {
 
         return removeColumn;
     }
-
-    public Tab getInstance(){ return this.tab; }
 }

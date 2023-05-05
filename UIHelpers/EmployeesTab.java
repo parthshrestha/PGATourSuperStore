@@ -10,19 +10,14 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import staff.Staff;
 
-public class EmployeesTab{
+public class EmployeesTab extends Tab{
     private PGATourSuperstore pga;
-    private Tab tab;
     public EmployeesTab(PGATourSuperstore pga)
     {
         this.pga = pga;
-        this.tab = employeeTab();
-    }
 
-    private Tab employeeTab()
-    {
-        Tab employeesTab = new Tab("Employees");
-        employeesTab.setClosable(false);
+        setText("Employees");
+        setClosable(false);
         VBox employeesBox = new VBox();
         employeesBox.setAlignment(Pos.TOP_LEFT);
 
@@ -63,8 +58,7 @@ public class EmployeesTab{
         employeesBox.getChildren().add(new Label(""));
         employeesBox.getChildren().addAll(employeesTable);
 
-        employeesTab.setContent(employeesBox);
-        return employeesTab;
+        setContent(employeesBox);
     }
 
     private TableColumn<Staff, Void> removeEmployeeButton(TableView<Staff> employeesTable)
@@ -130,6 +124,4 @@ public class EmployeesTab{
 
         return addBox;
     }
-
-    public Tab getInstance() { return this.tab; }
 }

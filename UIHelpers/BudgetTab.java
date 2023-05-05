@@ -10,27 +10,19 @@ import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-public class BudgetTab {
+public class BudgetTab extends Tab{
 
     private PGATourSuperstore pga;
-    private Tab tab;
-
     public BudgetTab(PGATourSuperstore pga)
     {
         this.pga = pga;
-        this.tab = budgetTab();
-    }
 
-    private Tab budgetTab()
-    {
-        Tab budgetTab = new Tab("Budget");
-        budgetTab.setClosable(false);
+        setText("Budget");
+        setClosable(false);
 
         HBox budgetBox = budgetBox();
 
-        budgetTab.setContent(budgetBox);
-
-        return budgetTab;
+        setContent(budgetBox);
     }
     private HBox budgetBox() {
 
@@ -70,6 +62,4 @@ public class BudgetTab {
 
         return addBox;
     }
-
-    public Tab getInstance(){ return this.tab; }
 }
