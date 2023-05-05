@@ -49,8 +49,8 @@ public class ManagerMode extends Application {
         TabPane tabPane = new TabPane();
         primstage = primaryStage;
 
-        Tab budgetTab = new BudgetTab(pga)
-        Tab employeesTab = new EmployeesTab(pga)
+        Tab budgetTab = new BudgetTab(pga);
+        Tab employeesTab = new EmployeesTab(pga);
         Tab inventoryTab = new InventoryTab(pga);
         Tab soldInventoryTab = new SoldInventoryTab(pga);
         Tab virtualMapTab = virtualMapTab();
