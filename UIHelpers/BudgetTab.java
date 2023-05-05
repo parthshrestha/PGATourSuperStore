@@ -28,13 +28,15 @@ public class BudgetTab extends Tab{
 
         Label budget = new Label("Budget: " + pga.getBudget());
 
-        // Create text fields for each item field
+        // Create text fields for money input
         TextField moneyInput = new TextField();
         moneyInput.setPromptText("$Amount");
 
+        //Select to add or to remove from budget
         ComboBox<String> typeInput = new ComboBox<>();
         typeInput.getItems().addAll("Add", "Remove");
 
+        //Submit the oberation
         Button submitButton = new Button("Submit");
         submitButton.setOnAction(event -> {
             // Get the selected operation and the entered money value

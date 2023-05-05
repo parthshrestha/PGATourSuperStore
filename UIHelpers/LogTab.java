@@ -16,8 +16,10 @@ public class LogTab extends Tab {
         this.logFile = logFile;
         setContent(new VBox());
 
+        //Create a list view
         ListView<String> listView = new ListView<>();
 
+        //Read from the file and add new list item
         try {
             File file = new File(logFile);
             Scanner myReader = new Scanner(file);
