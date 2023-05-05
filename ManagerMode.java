@@ -19,7 +19,9 @@ import javafx.geometry.Pos;
 import javafx.collections.*;
 
 //import java.awt.*;
+import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import goods.*;
 import map.Map;
@@ -53,10 +55,11 @@ public class ManagerMode extends Application {
         Tab employeesTab = new EmployeesTab(pga);
         Tab inventoryTab = new InventoryTab(pga);
         Tab soldInventoryTab = new SoldInventoryTab(pga);
+        Tab logsTab = logsTab();
         Tab virtualMapTab = virtualMapTab();
         Tab simulationTab = simulationTab();
 
-        tabPane.getTabs().addAll(budgetTab, employeesTab, inventoryTab, soldInventoryTab, virtualMapTab, simulationTab);
+        tabPane.getTabs().addAll(budgetTab, employeesTab, inventoryTab, soldInventoryTab, logsTab, virtualMapTab, simulationTab);
 
         StackPane root = new StackPane(tabPane);
 
@@ -69,6 +72,27 @@ public class ManagerMode extends Application {
 
         // Select the second tab
         tabPane.getSelectionModel().select(employeesTab);
+    }
+
+    private Tab logsTab()
+    {
+        Tab logsTab = new Tab("Logs");
+        TabPane logsPane = new TabPane();
+
+        File logsFolder = new File("Logs");
+        ArrayList<File> files = new ArrayList<File>(Arrays.asList(logsFolder.listFiles()));
+
+        for(File f : files)
+        {
+            String name = f.getName();
+            System.out.println(name);
+            Tab logTab = new LogTab(name, "Logs/"+ name);
+
+            logsPane.getTabs().add(logTab);
+        }
+
+        logsTab.setContent(logsPane);
+        return logsTab;
     }
 
     private Tab virtualMapTab()

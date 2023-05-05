@@ -4,9 +4,8 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.Tab;
 import javafx.scene.layout.VBox;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
+import java.util.Scanner;
 
 public class LogTab extends Tab {
 
@@ -17,17 +16,23 @@ public class LogTab extends Tab {
         this.logFile = logFile;
         setContent(new VBox());
 
-        // Read the log file and add each log to the list view
-        try (BufferedReader reader = new BufferedReader(new FileReader(logFile))) {
-            ListView<String> listView = new ListView<>();
-            String line;
-            while ((line = reader.readLine()) != null) {
+        ListView<String> listView = new ListView<>();
+
+        try {
+            File file = new File(logFile);
+            Scanner myReader = new Scanner(file);
+
+            while (myReader.hasNextLine()) {
+                String line = myReader.nextLine();
                 listView.getItems().add(line);
             }
+
+            myReader.close();
             ((VBox) getContent()).getChildren().add(listView);
-        } catch (IOException e) {
-            System.err.println("Failed to read log file: " + logFile);
+
+        } catch (FileNotFoundException e) {
+            System.out.println("Could not read log file.");
+            e.printStackTrace();
         }
     }
-
 }
