@@ -3,6 +3,8 @@ import UIHelpers.*;
 import enums.Enums;
 import Activity.Ecommerce;
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -21,28 +23,40 @@ import java.util.ArrayList;
 
 import goods.*;
 import map.Map;
-import searchAlgorithm.BFSSearch;
-import searchAlgorithm.DFSSearch;
-import searchAlgorithm.DijkstraSearch;
+import searchAlgorithm.*;
 import staff.*;
 
+// Manager Mode is mostly inspired from this tutorial
+// https://m.youtube.com/watch?v=Ope4icw6bVk
+// The rest are mostly from searching around the internet, here are some
+//https://www.geeksforgeeks.org/javafx-vbox-class/
+//https://www.geeksforgeeks.org/javafx-hbox-class/
+//https://www.geeksforgeeks.org/javafx-combobox-with-examples/
+//https://www.tutorialspoint.com/javafx/layout_gridpane.htm
+//https://stackoverflow.com/questions/65119396/javafx-how-to-make-a-button-to-display-and-hide-label
+//https://www.geeksforgeeks.org/javafx-label/
+//https://jenkov.com/tutorials/javafx/tableview.html
 public class ManagerMode extends Application {
     private Label algorithmLabel;
     private static PGATourSuperstore pga;
+    private static Simulation sim;
     private static Ecommerce ecommerce = new Ecommerce();
+    Stage primstage;
 
     @Override
     public void start(Stage primaryStage)
     {
         TabPane tabPane = new TabPane();
+        primstage = primaryStage;
 
         Tab budgetTab = new BudgetTab(pga).getInstance();
         Tab employeesTab = new EmployeesTab(pga).getInstance();
         Tab inventoryTab = new InventoryTab(pga).getInstance();
         Tab soldInventoryTab = new SoldInventoryTab(pga).getInstance();
         Tab virtualMapTab = virtualMapTab();
+        Tab simulationTab = simulationTab();
 
-        tabPane.getTabs().addAll(budgetTab, employeesTab, inventoryTab, soldInventoryTab, virtualMapTab);
+        tabPane.getTabs().addAll(budgetTab, employeesTab, inventoryTab, soldInventoryTab, virtualMapTab, simulationTab);
 
         StackPane root = new StackPane(tabPane);
 
@@ -51,6 +65,7 @@ public class ManagerMode extends Application {
         primaryStage.setTitle("Manager Mode");
         primaryStage.setScene(scene);
         primaryStage.show();
+//        primaryStage.close();
 
         // Select the second tab
         tabPane.getSelectionModel().select(employeesTab);
@@ -72,10 +87,6 @@ public class ManagerMode extends Application {
                 grid.add(rect, i, j);
             }
         }
-//
-//        Rectangle temp = (Rectangle) grid.getChildren().get((1 * grid.getRowCount()) + 0);
-//        temp.setFill(Color.GOLD);
-
 
         // Create three buttons
         Button bfsBTN = new Button("BFS Search");
@@ -104,8 +115,6 @@ public class ManagerMode extends Application {
 
         VBox vboxGoals = new VBox(30, textFieldGoals);
         vboxGoals.setAlignment(Pos.CENTER);
-
-
 
         // Create List of items that can be picked
         ComboBox<Item> comboBox = new ComboBox<>();
@@ -149,7 +158,6 @@ public class ManagerMode extends Application {
 
         return virtualMapTab;
     }
-
     private void toggleSolveButton(Ecommerce currState, GridPane currGrid){
         currState.findPaths();
         Map currMap = currState.getMap();
@@ -163,7 +171,6 @@ public class ManagerMode extends Application {
         currState.clearMap();
 
     }
-
     private void toggleAddGoal(ComboBox itemsCombo, Label goalsTextField, Ecommerce currState){
         Item chosen = (Item) itemsCombo.getSelectionModel().getSelectedItem();
         currState.addGoals(chosen);
@@ -173,26 +180,63 @@ public class ManagerMode extends Application {
         currState.resetGoals();
         goalsTextField.setText("Here are the items as goals \n");
     }
-
     private void toggleBFS(Ecommerce currState){
-        currState.setAlgorithm(new BFSSearch());
+        currState.setAlgorithm(BFSSearchSingleton.getInstance().getBfsSearch());
         algorithmLabel.setText("BFS Search Currently");
     }
-
     private void toggleDFS(Ecommerce currState){
-        currState.setAlgorithm(new DFSSearch());
+        currState.setAlgorithm(DFSSearchSingleton.getInstance().getDfsSearch());
         algorithmLabel.setText("DFS Search Currently");
     }
-
     private void toggleDijkstra(Ecommerce currState){
-        currState.setAlgorithm(new DijkstraSearch());
+        currState.setAlgorithm(DijkstraSearchSingleton.getInstance().getDijkstraSearch());
         algorithmLabel.setText("Dijkstra Search Currently");
     }
-
-    public void openWindow(PGATourSuperstore pga)
+    public void openWindow(PGATourSuperstore pga, Simulation sim)
     {
         this.pga = pga;
+        this.sim = sim;
         launch();
     }
+
+    private Tab simulationTab(){
+        Tab simulationTab = new Tab("Simulation");
+        simulationTab.setClosable(false);
+        Label question = new Label("How many Days Would you want the Simulation to run?");
+        TextField inputDay = new TextField();
+
+        // numeric only textfield
+        // http://www.java2s.com/example/java/javafx/require-the-javafx-text-field-to-contain-numeric-digits-only.html
+        inputDay.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(
+                    ObservableValue<? extends String> observable,
+                    String oldValue, String newValue) {
+                if (!newValue.matches("\\d*")) {
+                    inputDay.setText(newValue.replaceAll("[^\\d]", ""));
+                }
+            }
+        });
+        inputDay.setMaxWidth(50);
+
+        // Buttom to start simulation
+        Button startSim = new Button("Start Simulation!");
+        startSim.setOnAction(e -> toggleStartSim(inputDay));
+
+        VBox simulationInput = new VBox(30, question, inputDay, startSim);
+        simulationInput.setAlignment(Pos.CENTER);
+
+        simulationTab.setContent(simulationInput);
+        return simulationTab;
+    }
+
+    public void toggleStartSim(TextField input){
+        int temp = Integer.valueOf(input.getText());
+        this.sim = new Simulation(new PGATourSuperstore("1"));
+        this.sim.run(temp);
+        this.pga = this.sim.getPga();
+        start(primstage);
+    }
+
 
 }
