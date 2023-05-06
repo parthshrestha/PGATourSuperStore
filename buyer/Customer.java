@@ -15,15 +15,17 @@ public class Customer {
     int age;
     double wristToFloorDistance;
     Club[] golfBag = new Club[14];
-    ArrayList<goods.Item> cart;
+    ArrayList<Item> cart;
     Enums.ServiceType service;
     protected Enums.CustomerIntent intent;
     Enums.CustomerIntent[] intents = {Enums.CustomerIntent.SERVICE,Enums.CustomerIntent.FITTING,Enums.CustomerIntent.SHOPPING};
     Enums.ServiceType[] services= {Enums.ServiceType.REGRIP,Enums.ServiceType.RESHAFT,Enums.ServiceType.LENGTHEN,Enums.ServiceType.SHORTEN,Enums.ServiceType.NONE};
     HashMap<String,ArrayList<Enums.ServiceType>> jobToEachClub;//<club head,jobs to be done>
     String MemberID;
+    protected double handSize;
     public Customer()
     {
+        cart = new ArrayList<Item>();
         name = naming();
         //salary, staff itself does not have a salary set yet
         age =  (int)((Math.random() * (65 - 18)) + 18);
@@ -41,7 +43,8 @@ public class Customer {
             jobToEachClub.put(currClub.getClubHead() ,new ArrayList<Enums.ServiceType>());
         }
         generateService();
-        cart = new ArrayList<Item>();
+        handSize = (rand.nextDouble() * 6) + 6;// this way min is 6
+
 
     }
     public void generateSet()
@@ -80,6 +83,7 @@ public class Customer {
                 {
                     jobToEachClub.get(currClub.getClubHead()).add(Enums.ServiceType.REGRIP);
                 }
+
                 else//keep only a slight chance they don't get a re grip
                 {
                     jobToEachClub.get(currClub.getClubHead()).add(Enums.ServiceType.NONE);
@@ -162,20 +166,6 @@ public class Customer {
 
         return generateName;
     }
-
-    public void fillCartRandom(ArrayList<Item> inventory)
-    {
-        Random rand = new Random();
-
-        //Select random items for customer to purchase (max 3)
-        int numPurchases = rand.nextInt(4);
-        int[] cartItemIndexes = rand.ints(0, inventory.size()).distinct().limit(numPurchases).toArray();
-        for(int i = 0; i < numPurchases; i++)
-        {
-            cart.add(inventory.get(cartItemIndexes[i]));
-        }
-    }
-
     public Club getClubAt(int i)
     {
         return golfBag[i];
@@ -192,7 +182,24 @@ public class Customer {
     {
         return wristToFloorDistance;
     }
-    public ArrayList<goods.Item> getCart() { return this.cart; }
-    public void addToCart(goods.Item item) { cart.add(item); }
 
+    public double getHandSize() {
+        return handSize;
+    }
+    public void addToCart(Item item)
+    {
+        cart.add(item);
+    }
+    public Item getCartAt(int i)
+    {
+        return cart.get(i);
+    }
+    public int getCartSize()
+    {
+        return cart.size();
+    }
+    public void printRecipt()
+    {
+        System.out.println("");
+    }
 }

@@ -13,14 +13,16 @@ public class ServicePerson extends Staff{
     public ServicePerson()
     {
         super();
-        payRate = randPayRate(19.5, 17.3);
+        payRate = ((Math.random() * (19.5 - 17.3)) + 17.3);
         numServiced = 0;
         type = Enums.StaffType.ServicePerson;
         serviceType = generateServiceType();
     }
     @Override
-    public void pay() {
+    public double pay() {
         balance += payRate;
+        daysWorked++;
+        return payRate;
     }
     public int getNumServiced()
     {return numServiced;}

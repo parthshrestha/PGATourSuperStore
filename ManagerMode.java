@@ -85,7 +85,7 @@ public class ManagerMode extends Application {
         for(File f : files)
         {
             String name = f.getName();
-            System.out.println(name);
+//            System.out.println(name);
             Tab logTab = new LogTab(name, "Logs/"+ name);
 
             logsPane.getTabs().add(logTab);

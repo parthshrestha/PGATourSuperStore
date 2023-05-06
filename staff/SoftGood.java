@@ -9,11 +9,13 @@ public class SoftGood extends Staff{
     public SoftGood()
     {
         super();
-        payRate = randPayRate(18.5, 15.3);
+        payRate = ((Math.random() * (18.5 - 15.3)) + 15.3);
         type = Enums.StaffType.SoftGood;
     }
     @Override
-    public void pay() {
+    public double pay() {
         balance += payRate;
+        daysWorked++;
+        return payRate;
     }
 }

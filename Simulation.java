@@ -29,6 +29,8 @@ public class Simulation implements Publisher {
     public void run(int runDays) {
         day = 0;
 
+
+
         Tracker track = Singleton.getInstanceTracker();
         for(int i = 0; i < 1; i++) {
             pga.registerSubscriber(track);
@@ -38,61 +40,34 @@ public class Simulation implements Publisher {
             pga.registerSubscriber(log);//adding the subcriber into the list
 
             ArrayList<Customer> buyers = new ArrayList<Customer>();
-            //ArrayList<Buyer> buyers1 = new ArrayList<Buyer>();
+
             System.out.println("===== Day: " + (day + 1) + "," + getDayOfTheWeek() + "=====");
-//                myDealership.opening();
-//                myDealership1.opening();
+//
             pga.opening();
 
             Random rand = new Random();
-            int numService = rand.nextInt(30);
+            int numService = rand.nextInt(20);
             ArrayList<Customer> customers = new ArrayList<Customer>();
-
             for(int i = 0; i< numService;i++)
             {
                 customers.add(new Customer());
             }
-
             pga.Service(customers);
-
-
-            System.out.println("\n-------------------------------------");
-            System.out.println("Selling \n");
-
-            for(int j = 0; j < customers.size(); j++)
+            pga.fitting(customers);
+            for(int i = 0; i <  customers.size(); i++)
             {
-                Customer customer = customers.get(j);
-                if(customer.getIntent() == Enums.CustomerIntent.SHOPPING)
-                {
-                    pga.selling(customer);
-                }
+                pga.selling(customers.get(i));
             }
-
-            System.out.println();
-
-//            for(int i = 0; i < pga.size(); i++)
-//            {
-//                pga.get(i).fitting(customers);
-//            }
-
+            pga.ending();
 //
 
             track.showReport();//should match and part of observer pattern tracking side
-//                myDealership.unregisterSubscriber(log);//logger in observer pattern changes every day
-//                myDealership1.unregisterSubscriber(log);//logger in observer pattern changes every day
-
+//
             pga.unregisterSubscriber(log);
             day++;
         }
-//        String fncdGraph1 = dealerships.get(0).name + "Graph.jpg";
-//        FncdGraph graph1 = new FncdGraph(vehiclesSoldPerDay[0],staffEarningsPerDay[0],fncdEarningsPerDay[0],fncdGraph1);
-//        String fncdGraph2 = dealerships.get(1).name + "Graph.jpg";
-//        FncdGraph graph2 = new FncdGraph(vehiclesSoldPerDay[1],staffEarningsPerDay[1],fncdEarningsPerDay[1],fncdGraph2);
-//        sellingInteractive();
-
-//        myDealership.unregisterSubscriber(track);//tracking from observer pattern ends when simulation does
-//        myDealership1.unregisterSubscriber(track);
-        pga.unregisterSubscriber(track);
+//
+            pga.unregisterSubscriber(track);
     }
 
     public PGATourSuperstore getPga(){

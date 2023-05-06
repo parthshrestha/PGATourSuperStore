@@ -50,6 +50,7 @@ public class Service implements Publisher {
                                 budget += newGrip.getPrice();
                                 currClub.setNewGrip(newGrip);
                                 System.out.println("New grip is: "+ (currClub.getClubGrip()).getBrand()+" "+(currClub.getClubGrip()).getModel()+ "Size: "+(currClub.getClubGrip()).getSize() );
+                                notifySubscriber("log","New grip is: "+ (currClub.getClubGrip()).getBrand()+" "+(currClub.getClubGrip()).getModel()+ "Size: "+(currClub.getClubGrip()).getSize());
                             } else if (jobList.get(k) == Enums.ServiceType.RESHAFT) {
                                 serviceCost = shaftRepairCost;
                                 budget += shaftRepairCost;
@@ -58,9 +59,11 @@ public class Service implements Publisher {
                                 budget += newShaft.getPrice();
                                 currClub.setNewShaft(newShaft);
                                 System.out.println("New Shaft is: "+ (currClub.getClubShaft()).getBrand()+" "+(currClub.getClubShaft()).getModel()+ "Flex: "+(currClub.getClubShaft()).getFlex() );
+                                notifySubscriber("log",(currClub.getClubShaft()).getBrand()+" "+(currClub.getClubShaft()).getModel()+ "Flex: "+(currClub.getClubShaft()).getFlex());
                             } else//none
                             {
                                 System.out.println(currClub.getClubHead() + " Does not need any additional repair");
+                                notifySubscriber("log",currClub.getClubHead() + " Does not need any additional repair");
                             }
                             employee.serviceType.serviceNow(currClub);
                             if(currClub.getCondition() == Enums.Condition.PERFECT)
@@ -70,7 +73,8 @@ public class Service implements Publisher {
                                 employee.setBonus(bonus);
                                 budget-= bonus;
                                 System.out.println(employee.getName() +" Earned bonus of: " + bonus);
-
+                                notifySubscriber("log",employee.getName() +" Earned bonus of: " + bonus);
+                                notifySubscriber("staff",String.valueOf(bonus));
                             }
                         }
                         //after doing all jobs change the condition to better or worse or the same
@@ -81,12 +85,14 @@ public class Service implements Publisher {
                     employee.incrementNumServiced();
                 } else {
                     System.out.println("Service member has already serviced 5 orders");
+                    notifySubscriber("log","Service member has already serviced 5 orders");
                 }
 
 
             }
         }
         System.out.println("finished servicing");
+        notifySubscriber("log","finished servicing");
         return budget;
     }
 

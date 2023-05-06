@@ -47,7 +47,7 @@ public abstract class Item {
         return price;
     }
 
-    public Double getCost(){ return cost;}
+    public Double getCost(){ return price/2;}
     //setters
 
     public void setUpc(int upc) {

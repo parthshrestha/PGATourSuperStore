@@ -7,53 +7,30 @@ public class Tracker implements Subscriber{
     protected double staffExpense1 = 0;
 
     @Override
-    public void update(String fncd,String type,String msg) {//part of the observer pattern
+    public void update(String type,String msg) {//part of the observer pattern
 
 
-        if(fncd.equals("FNCD0"))
+
+        if(type == "staff")
         {
-            if(type == "staff")
-            {
-                staffExpense += Double.parseDouble(msg);
-            }
-            else if(type == "budgetAdd")
-            {
-                budget += Double.parseDouble(msg);
-            }
-            else if(type == "budgetSub")
-            {
-                budget -= Double.parseDouble(msg);
-            }
+            staffExpense += Double.parseDouble(msg);
         }
-        else
+        else if(type == "budgetAdd")
         {
-            if(type == "staff")
-            {
-                staffExpense1 += Double.parseDouble(msg);
-            }
-            else if(type == "budgetAdd")
-            {
-                budget1 += Double.parseDouble(msg);
-            }
-            else if(type == "budgetSub")
-            {
-                budget1 -= Double.parseDouble(msg);
-            }
+            budget += Double.parseDouble(msg);
+        }
+        else if(type == "budgetSub")
+        {
+            budget -= Double.parseDouble(msg);
         }
 
 
 
     }
-    public double getstaffEarnigs(String fncd)
+    public double getstaffEarnigs()
     {
-        if(fncd.equals("FNCD0"))
-        {
-            return staffExpense;
-        }
-        else
-        {
-            return staffExpense1;
-        }
+        return staffExpense;
+
     }
 
     public void showReport()
@@ -61,9 +38,7 @@ public class Tracker implements Subscriber{
         System.out.println("This is the report0++++++++");
         System.out.println("So far Staff expense is: "+ staffExpense);
         System.out.println("Budget: "+ budget);
-        System.out.println("This is the report1++++++++");
-        System.out.println("So far Staff expense is: "+ staffExpense1);
-        System.out.println("Budget: "+ budget1);
+
 
 
     }

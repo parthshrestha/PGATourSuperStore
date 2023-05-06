@@ -11,12 +11,12 @@ public interface Publisher {
     }
     default void unregisterSubscriber(Subscriber follower)
     {subscribersList.remove(follower);}
-    default void notifySubscriber(String fncd,String type,String msg)//types //log,budgetTrack, staffTrack
+    default void notifySubscriber(String type,String msg)//types //log,budgetTrack, staffTrack
     {
         for(int i = 0;i<subscribersList.size(); i++)
         {
 //            System.out.println(subscribersList.get(i));
-            subscribersList.get(i).update(fncd,type,msg);
+            subscribersList.get(i).update(type,msg);
         }
     }
 }

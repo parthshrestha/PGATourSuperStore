@@ -10,7 +10,7 @@ public class Logger implements Subscriber{
         //create new file using day
         fileName = "logger_" + day + ".txt";
         //source= "/Users/shrestha/Desktop/LearnJAVA/Project4/src/proj4/Logs/";
-        source = "./src/proj4/Logs/";
+        source = "./Logs/";
         try {
             File myFile = new File(source+fileName);
             myFile.getParentFile().mkdirs();
@@ -27,7 +27,7 @@ public class Logger implements Subscriber{
 
 
     @Override
-    public void update(String fncd,String type,String msg) {
+    public void update(String type,String msg) {
 //if logger in front of string
         //write to it
         try {
@@ -69,7 +69,7 @@ public class Logger implements Subscriber{
                 //System.out.println("logging regular");
                 FileWriter myWriter = new FileWriter(source+fileName,true);
 
-                myWriter.write(fncd+": "+msg+"\n");
+                myWriter.write(": "+msg+"\n");
                 myWriter.flush();
             }
 

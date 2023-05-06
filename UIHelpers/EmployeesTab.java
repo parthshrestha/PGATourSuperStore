@@ -27,7 +27,7 @@ public class EmployeesTab extends Tab{
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
 
         TableColumn<Staff, String> idColumn = new TableColumn<>("Staff ID");
-        idColumn.setCellValueFactory(new PropertyValueFactory<>("staffId"));
+        idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
 
         TableColumn<Staff, String> typeColumn = new TableColumn<>("Type");
         typeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));

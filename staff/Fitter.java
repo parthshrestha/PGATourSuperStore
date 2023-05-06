@@ -7,11 +7,13 @@ public class Fitter extends Staff{
     public Fitter()
     {
         super();
-        payRate = randPayRate(21.5, 18.3);
+        payRate = ((Math.random() * (21.5 - 18.3)) + 18.3);
         type = Enums.StaffType.Fitter;
     }
     @Override
-    public void pay() {
+    public double pay() {
         balance += payRate;
+        daysWorked++;
+        return payRate;
     }
 }
